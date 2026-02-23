@@ -40,6 +40,8 @@
     root.setAttribute('data-theme', theme);
     const toggle = document.getElementById('themeToggle');
     if (!toggle) return;
+    toggle.classList.remove('is-dragging');
+    toggle.style.removeProperty('--thumb-x');
     const label = toggle.querySelector('.theme-text');
     const icon = toggle.querySelector('.theme-icon');
     toggle.classList.toggle('is-light', theme === 'light');
@@ -61,49 +63,90 @@
 
     const toggle = document.getElementById('themeToggle');
     if (toggle) {
-      let pointerStartX = null;
-      let pointerStartY = null;
-      let swipeHandled = false;
+      let pointerId = null;
+      let pointerStartX = 0;
+      let pointerStartY = 0;
+      let startThumbX = 0;
+      let moved = false;
       let ignoreClickUntil = 0;
+      const DRAG_DISTANCE_THRESHOLD = 12;
 
       const setTheme = (next, event) => {
         if (root.getAttribute('data-theme') === next) return;
-        const delay = runThemeRipple(event);
-        window.setTimeout(() => {
-          applyTheme(next);
-          localStorage.setItem(STORAGE_KEY, next);
-        }, delay);
+        runThemeRipple(event);
+        applyTheme(next);
+        localStorage.setItem(STORAGE_KEY, next);
+      };
+
+      const getMaxThumbX = () => Math.max(0, toggle.getBoundingClientRect().width - 42);
+
+      const setDragThumb = (x) => {
+        const clamped = Math.min(getMaxThumbX(), Math.max(0, x));
+        toggle.style.setProperty('--thumb-x', `${clamped}px`);
+        return clamped;
       };
 
       const onPointerDown = (event) => {
+        if (!event.isPrimary || event.button !== 0) return;
+        if (event.pointerType === 'mouse') return;
+        pointerId = event.pointerId;
         pointerStartX = event.clientX;
         pointerStartY = event.clientY;
-        swipeHandled = false;
+        moved = false;
+        startThumbX = root.getAttribute('data-theme') === 'dark' ? getMaxThumbX() : 0;
+        if (toggle.setPointerCapture) {
+          toggle.setPointerCapture(event.pointerId);
+        }
       };
 
       const onPointerMove = (event) => {
-        if (pointerStartX === null || pointerStartY === null || swipeHandled) return;
+        if (pointerId !== event.pointerId) return;
         const dx = event.clientX - pointerStartX;
         const dy = event.clientY - pointerStartY;
-
-        // Require deliberate horizontal gesture to avoid accidental toggles.
-        if (Math.abs(dx) < 16 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
-
-        swipeHandled = true;
-        ignoreClickUntil = Date.now() + 280;
-        const next = dx > 0 ? 'light' : 'dark';
-        setTheme(next, event);
+        if (!moved && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
+        if (!moved && Math.abs(dy) > Math.abs(dx) * 1.25) return;
+        if (!moved) {
+          moved = true;
+          toggle.classList.add('is-dragging');
+          toggle.style.setProperty('--thumb-x', `${startThumbX}px`);
+        }
+        setDragThumb(startThumbX + dx);
       };
 
-      const onPointerEnd = () => {
-        pointerStartX = null;
-        pointerStartY = null;
+      const onPointerEnd = (event) => {
+        if (pointerId !== event.pointerId) return;
+        const maxThumbX = getMaxThumbX();
+        const dx = event.clientX - pointerStartX;
+        const draggedFarEnough = Math.abs(dx) >= DRAG_DISTANCE_THRESHOLD;
+        const finalThumbX = moved ? setDragThumb(startThumbX + dx) : startThumbX;
+        const nextTheme = finalThumbX >= maxThumbX / 2 ? 'dark' : 'light';
+
+        if (moved && draggedFarEnough) {
+          ignoreClickUntil = Date.now() + 280;
+          setTheme(nextTheme, event);
+        } else {
+          // Suppress synthetic click after any drag motion to avoid double-animation glitch.
+          if (moved) {
+            ignoreClickUntil = Date.now() + 280;
+          }
+          toggle.classList.remove('is-dragging');
+          if (moved) {
+            toggle.style.removeProperty('--thumb-x');
+          }
+        }
+
+        if (toggle.releasePointerCapture && toggle.hasPointerCapture && toggle.hasPointerCapture(event.pointerId)) {
+          toggle.releasePointerCapture(event.pointerId);
+        }
+        pointerId = null;
+        pointerStartX = 0;
+        pointerStartY = 0;
       };
 
       toggle.addEventListener('pointerdown', onPointerDown, { passive: true });
       toggle.addEventListener('pointermove', onPointerMove, { passive: true });
-      toggle.addEventListener('pointerup', onPointerEnd, { passive: true });
-      toggle.addEventListener('pointercancel', onPointerEnd, { passive: true });
+      toggle.addEventListener('pointerup', onPointerEnd);
+      toggle.addEventListener('pointercancel', onPointerEnd);
 
       toggle.addEventListener('click', (event) => {
         if (Date.now() < ignoreClickUntil) {
