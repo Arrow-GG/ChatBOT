@@ -1,83 +1,119 @@
-function escapeHtml(value){
-  return String(value || '')
+function escapeHtml(text) {
+  return (text || '')
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#039;')
+    .replaceAll("'", '&#39;');
 }
 
-function renderRows(el, rows){
-  if(!rows || rows.length === 0){
-    el.innerHTML = '<div class="meta">No leads yet.</div>'
-    return
-  }
+function renderTable(rows) {
+  const body = rows
+    .map((r) => {
+      return `<tr>
+        <td>${escapeHtml(r.timestamp)}</td>
+        <td>${escapeHtml(r.name)}</td>
+        <td>${escapeHtml(r.email)}</td>
+        <td>${escapeHtml(r.phone)}</td>
+        <td>${escapeHtml(r.service)}</td>
+        <td>${escapeHtml(r.source)}</td>
+        <td>${escapeHtml(r.requirement)}</td>
+      </tr>`;
+    })
+    .join('');
 
-  const table = document.createElement('table')
-  table.className = 'data-table'
-  table.innerHTML = `
-    <thead>
-      <tr>
-        <th>Timestamp</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Service</th>
-        <th>Requirement</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${rows.map(r => `
-        <tr>
-          <td>${escapeHtml(r.timestamp)}</td>
-          <td>${escapeHtml(r.name)}</td>
-          <td>${escapeHtml(r.email)}</td>
-          <td>${escapeHtml(r.phone)}</td>
-          <td>${escapeHtml(r.service)}</td>
-          <td>${escapeHtml(r.requirement)}</td>
-        </tr>
-      `).join('')}
-    </tbody>
-  `
-
-  el.innerHTML = ''
-  el.appendChild(table)
+  return `
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Service</th>
+            <th>Source</th>
+            <th>Requirement</th>
+          </tr>
+        </thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>
+  `;
 }
 
-async function renderLeadsFromCSV(){
-  const el = document.getElementById('leadsArea')
-  try{
-    const res = await fetch('/leads')
-    const data = await res.json()
-    renderRows(el, data)
-  }catch(e){
-    el.innerHTML = '<div class="meta">Failed to load leads from CSV.</div>'
+function formatDate(isoDate) {
+  if (!isoDate) return 'No records';
+  const parsed = new Date(isoDate);
+  if (Number.isNaN(parsed.getTime())) return isoDate;
+  return parsed.toLocaleString();
+}
+
+function ensureAuthorized(res) {
+  if (res.status === 401) {
+    window.location.href = '/admin/login';
+    return false;
+  }
+  return true;
+}
+
+function renderMetrics(metrics) {
+  const el = document.getElementById('metricsArea');
+  if (!el) return;
+  const sources = Array.isArray(metrics.lead_sources)
+    ? metrics.lead_sources
+        .map((s) => `<span>${escapeHtml(s.source)}: ${s.total}</span>`)
+        .join('')
+    : '';
+
+  el.innerHTML = `
+    <article class="metric-card"><h3>${metrics.lead_total ?? 0}</h3><p>Total Leads</p></article>
+    <article class="metric-card"><h3>${metrics.chat_event_total ?? 0}</h3><p>Chat Events</p></article>
+    <article class="metric-card"><h3>${metrics.chat_sessions ?? 0}</h3><p>Chat Sessions</p></article>
+    <article class="metric-card"><h3>${escapeHtml(formatDate(metrics.latest_lead_at))}</h3><p>Latest Lead</p></article>
+    <article class="metric-card metric-wide"><h3>Lead Sources</h3><div class="metric-tags">${sources || '<span>No source data yet</span>'}</div></article>
+  `;
+}
+
+async function loadMetrics() {
+  try {
+    const res = await fetch('/metrics');
+    if (!ensureAuthorized(res)) return;
+    if (!res.ok) {
+      throw new Error(`Failed with status ${res.status}`);
+    }
+    const metrics = await res.json();
+    renderMetrics(metrics);
+  } catch (err) {
+    const el = document.getElementById('metricsArea');
+    if (el) {
+      el.innerHTML = '<div class="helper">Failed to load metrics.</div>';
+    }
   }
 }
 
-async function renderLeadsFromFirestore(){
-  const el = document.getElementById('leadsArea')
-  if(!window.firebaseConfig){
-    return renderLeadsFromCSV()
-  }
+async function loadLeads() {
+  const el = document.getElementById('leadsArea');
+  if (!el) return;
 
-  try{
-    if(!firebase.apps.length) firebase.initializeApp(window.firebaseConfig)
-    const db = firebase.firestore()
-    const snapshot = await db.collection('leads').orderBy('timestamp', 'desc').get()
-    const rows = []
-    snapshot.forEach(doc => rows.push(doc.data()))
-    renderRows(el, rows)
-  }catch(e){
-    console.warn(e)
-    return renderLeadsFromCSV()
+  try {
+    const res = await fetch('/leads');
+    if (!ensureAuthorized(res)) return;
+    if (!res.ok) {
+      throw new Error(`Failed with status ${res.status}`);
+    }
+    const rows = await res.json();
+    if (!Array.isArray(rows) || rows.length === 0) {
+      el.innerHTML = '<div class="helper">No leads captured yet.</div>';
+      return;
+    }
+    el.innerHTML = renderTable(rows);
+  } catch (err) {
+    el.innerHTML = '<div class="helper">Failed to load lead records.</div>';
   }
 }
 
 window.addEventListener('load', () => {
-  if(window.firebaseConfig){
-    renderLeadsFromFirestore()
-  }else{
-    renderLeadsFromCSV()
-  }
-})
+  loadMetrics();
+  loadLeads();
+});

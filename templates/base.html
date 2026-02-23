@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block title %}ArroneX{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    {% block head %}{% endblock %}
+  </head>
+  <body data-active-page="{{ active_page|default('home') }}">
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <img src="/static/arronex-logo.svg" alt="ArroneX logo" class="brand-logo brand-logo-dark">
+          <img src="/static/arronex-logo-light.svg" alt="ArroneX logo light mode" class="brand-logo brand-logo-light">
+        </div>
+        <nav class="nav-links">
+          <span id="navBubble" class="nav-bubble" aria-hidden="true"></span>
+          <a href="/" class="{{ 'active' if active_page == 'home' else '' }}">Home</a>
+          <a href="/about" class="{{ 'active' if active_page == 'about' else '' }}">About</a>
+          <a href="/chatbot" class="{{ 'active' if active_page == 'chatbot' else '' }}">Chatbot</a>
+          <a href="/contacts" class="{{ 'active' if active_page == 'contacts' else '' }}">Contacts</a>
+          <a href="/info" class="{{ 'active' if active_page == 'info' else '' }}">Info</a>
+          <a href="/admin" class="{{ 'active' if active_page == 'admin' else '' }}">Admin</a>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle light mode">
+            <span class="theme-icon">◐</span>
+            <span class="theme-text">Light</span>
+          </button>
+        </nav>
+      </header>
+
+      <main class="main">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+
+    {% if enable_chat|default(True) %}
+      <button id="floatChatBtn" class="float-chat" title="Open chatbot" aria-label="Open chatbot">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M21 14a2 2 0 0 1-2 2H9l-5 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v8z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <div id="chatModal" class="chat-modal" data-open="false" aria-hidden="true">
+        <section class="chat-card" role="dialog" aria-label="Chatbot">
+          <div class="chat-head">
+            <div class="chat-brand">
+              <img src="/static/arronex-logo.svg" alt="ArroneX" class="chat-brand-logo">
+              <h3>ArroneX AI Sales Assistant</h3>
+            </div>
+            <button id="closeChat" class="chat-close" aria-label="Close chat">&times;</button>
+          </div>
+          <div id="messages" class="messages"></div>
+          <div class="chat-input">
+            <input id="input" autocomplete="off" placeholder="Type your message..." />
+            <button id="send" type="button">Send</button>
+          </div>
+          <div class="chat-note">Business websites from $499, e-commerce from $899, chatbot integration from $599.</div>
+        </section>
+      </div>
+
+      <script src="/static/chat.js"></script>
+      <script src="/static/firebase-config.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    {% endif %}
+    <script src="/static/ui-effects.js"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

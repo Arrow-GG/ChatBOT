@@ -1,33 +1,35 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Info — Arrow Digital Solutions</title>
-    <link rel="stylesheet" href="/static/style.css">
-  </head>
-  <body>
-    <div class="bg-grid"></div>
-    <div class="wrap">
-      <div class="card header-nav">
-        <div><strong>Pricing & Delivery</strong><div class="meta">Transparent starting plans + custom scope options</div></div>
-        <div class="nav-links"><a href="/">Home</a><a href="/contacts">Contacts</a><a href="/chatbot" class="pill">ChatBot</a></div>
-      </div>
-      <section class="cards-grid">
-        <article class="card feature-card"><h3>Business Website</h3><p class="meta">from ₹15,000 • 7–14 days</p></article>
-        <article class="card feature-card"><h3>E-commerce</h3><p class="meta">from ₹25,000 • 10–21 days</p></article>
-        <article class="card feature-card"><h3>AI Chatbot</h3><p class="meta">from ₹18,000 • 7–14 days</p></article>
-      </section>
-      <div class="card section-block" style="margin-top:16px">
-        <h3>What every project includes</h3>
-        <ul>
-          <li>Project scoping and proposal</li>
-          <li>Design mockups and revisions</li>
-          <li>Development, testing, and deployment</li>
-          <li>1–2 weeks post-launch support for bug fixes</li>
-        </ul>
-        <a class="cta" href="/login">Request a Free Consultation</a>
-      </div>
+{% extends 'base.html' %}
+
+{% block title %}Info | ArroneX{% endblock %}
+
+{% block content %}
+<section class="section-card panel">
+  <h1 class="page-title">Pricing and Delivery Information</h1>
+  <p class="lead">Transparent starter pricing with fixed-quote options for custom scopes.</p>
+</section>
+
+<section class="content-grid" style="margin-top:16px">
+  <article class="section-card panel">
+    <h3 style="margin-top:0">Packages</h3>
+    <ul class="list-clean">
+      <li>Business website: from $499, usually 1-2 weeks.</li>
+      <li>E-commerce platform: from $899, usually 2-4 weeks.</li>
+      <li>AI chatbot integration: from $599, usually 1-2 weeks.</li>
+      <li>Automation systems and UI/UX programs: custom quote.</li>
+    </ul>
+  </article>
+
+  <article class="section-card panel">
+    <h3 style="margin-top:0">What is included</h3>
+    <ul class="list-clean">
+      <li>Discovery, architecture, and technical scope.</li>
+      <li>Design rounds and engineering implementation.</li>
+      <li>Quality assurance and launch support.</li>
+      <li>Short post-launch stabilization period.</li>
+    </ul>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/login">Get a Precise Quote</a>
     </div>
-  </body>
-</html>
+  </article>
+</section>
+{% endblock %}

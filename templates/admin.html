@@ -1,28 +1,40 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Admin — Arrow Digital Solutions</title>
-    <link rel="stylesheet" href="/static/style.css">
-  </head>
-  <body>
-    <div class="bg-grid"></div>
-    <div class="wrap">
-      <div class="card header-nav">
-        <div><strong>Admin Dashboard — Leads</strong><div class="meta">Realtime sales pipeline overview</div></div>
-        <div class="nav-links"><a href="/">Open Site</a><a href="/chatbot" class="pill">Open Chat</a></div>
-      </div>
+{% extends 'base.html' %}
 
-      <div class="card section-block">
-        <p class="meta">If Firebase is configured, this dashboard reads Firestore first. Otherwise it falls back to local CSV.</p>
-        <div id="leadsArea">Loading leads…</div>
-      </div>
+{% block title %}Admin | ArroneX{% endblock %}
+
+{% block content %}
+<section class="section-card panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div>
+      <h1 class="page-title">Admin Dashboard</h1>
+      <p class="lead">Lead records and chat activity are loaded from SQLite and sorted by most recent submissions.</p>
     </div>
+    <form method="post" action="/admin/logout">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+      <button class="btn btn-secondary" type="submit">Logout</button>
+    </form>
+  </div>
+</section>
 
-    <script src="/static/admin.js"></script>
-    <script src="/static/firebase-config.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-  </body>
-</html>
+<section class="section-card panel section-gap">
+  <div class="section-head">
+    <h2>Database Metrics</h2>
+    <p>Live counters from your SQLite store.</p>
+  </div>
+  <div id="metricsArea" class="metrics-grid" style="margin-top:14px">
+    <div class="metric-card"><h3>--</h3><p>Total Leads</p></div>
+    <div class="metric-card"><h3>--</h3><p>Chat Events</p></div>
+    <div class="metric-card"><h3>--</h3><p>Chat Sessions</p></div>
+    <div class="metric-card"><h3>--</h3><p>Latest Lead</p></div>
+  </div>
+</section>
+
+<section class="section-card panel" style="margin-top:16px">
+  <div class="helper" style="margin-bottom:12px">Source can be chatbot, login form, or optional Firebase mirror if configured.</div>
+  <div id="leadsArea" class="helper">Loading leads...</div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/admin.js"></script>
+{% endblock %}

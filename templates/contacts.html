@@ -1,37 +1,36 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Contacts — Arrow Digital Solutions</title>
-    <link rel="stylesheet" href="/static/style.css">
-  </head>
-  <body>
-    <div class="bg-grid"></div>
-    <div class="wrap">
-      <div class="card header-nav">
-        <div><strong>Contact Us</strong><div class="meta">Let's build your next AI-powered growth system</div></div>
-        <div class="nav-links"><a href="/">Home</a><a href="/info">Info</a><a href="/chatbot" class="pill">ChatBot</a></div>
-      </div>
-      <section class="cards-grid">
-        <article class="card feature-card">
-          <h3>Email</h3>
-          <p class="meta"><a href="mailto:contact@arrowdigital.example">contact@arrowdigital.example</a></p>
-        </article>
-        <article class="card feature-card">
-          <h3>Phone</h3>
-          <p class="meta">+91 90000 00000</p>
-        </article>
-        <article class="card feature-card">
-          <h3>Office</h3>
-          <p class="meta">123 Tech Park, Bangalore, India</p>
-        </article>
-      </section>
-      <div class="card section-block" style="margin-top:16px">
-        <h3>Business Hours</h3>
-        <p class="meta">Mon–Fri: 9:30 AM – 6:00 PM IST</p>
-        <a class="cta" href="/login">Request a Free Consultation</a>
-      </div>
+{% extends 'base.html' %}
+
+{% block title %}Contact | ArroneX{% endblock %}
+
+{% block content %}
+<section class="section-card panel">
+  <h1 class="page-title">Contact Us</h1>
+  <p class="lead">Talk with our team about websites, commerce, chatbot automation, or growth systems.</p>
+</section>
+
+<section class="content-grid" style="margin-top:16px">
+  <article class="section-card panel">
+    <h3 style="margin-top:0">Direct channels</h3>
+    <ul class="list-clean">
+      <li>Email: <a href="mailto:parashdeka.work@gmail.com">parashdeka.work@gmail.com</a></li>
+      <li>Phone: <a href="tel:+916000429946">+91 6000429946</a></li>
+      <li>Location: Guwahati, Assam, India</li>
+      <li>LinkedIn: <a href="https://linkedin.com/in/parash-deka" target="_blank" rel="noopener noreferrer">linkedin.com/in/parash-deka</a></li>
+    </ul>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/login">Request Consultation</a>
+      <button type="button" class="btn btn-secondary js-open-chat">Chat Now</button>
     </div>
-  </body>
-</html>
+  </article>
+
+  <article class="section-card panel">
+    <h3 style="margin-top:0">Office</h3>
+    <p class="lead" style="margin-top:8px">
+      ArroneX<br>
+      Guwahati, Assam<br>
+      India
+    </p>
+    <p class="helper">Available for remote projects and collaboration worldwide.</p>
+  </article>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+<svg width="820" height="180" viewBox="0 0 820 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ring" x1="20" y1="20" x2="160" y2="160" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#33E8FF"/>
+      <stop offset="1" stop-color="#7848FF"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="50" y1="56" x2="112" y2="134" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2CE8F6"/>
+      <stop offset="1" stop-color="#744BFF"/>
+    </linearGradient>
+    <linearGradient id="word" x1="170" y1="38" x2="760" y2="152" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#34E9FF"/>
+      <stop offset="1" stop-color="#F0F3FF"/>
+    </linearGradient>
+    <filter id="glow" x="0" y="0" width="200" height="200" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#glow)">
+    <circle cx="90" cy="90" r="70" stroke="url(#ring)" stroke-width="6"/>
+  </g>
+
+  <path d="M48 124L72 56H88L64 124H48Z" fill="url(#mark)"/>
+  <path d="M74 124L102 56H118L90 124H74Z" fill="url(#mark)"/>
+  <path d="M56 124H74L104 124H122L93 82H75L56 124Z" fill="url(#mark)" opacity="0.72"/>
+  <rect x="140" y="82" width="16" height="8" rx="4" fill="#2FE7FA"/>
+  <rect x="162" y="82" width="24" height="8" rx="4" fill="#2FE7FA"/>
+
+  <text x="194" y="122" font-family="'Space Grotesk', 'Orbitron', sans-serif" font-weight="700" font-size="84" fill="none" stroke="url(#word)" stroke-width="2.6" letter-spacing="1.5">ARRONEX</text>
+</svg>

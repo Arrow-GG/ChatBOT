@@ -1,124 +1,152 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Arrow Digital Solutions — AI Experience Studio</title>
-    <link rel="stylesheet" href="/static/style.css">
-  </head>
-  <body>
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
-    <div class="bg-grid"></div>
+{% extends 'base.html' %}
 
-    <div class="wrap">
-      <nav class="card header-nav">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div class="brand-badge">AD</div>
-          <div>
-            <div class="brand">Arrow Digital Solutions</div>
-            <div class="meta">Future-ready AI + Web Engineering</div>
-          </div>
-        </div>
-        <div class="nav-links">
-          <a href="/">Home</a>
-          <a href="/about">About us</a>
-          <a href="/chatbot" class="pill">ChatBot</a>
-          <a href="/contacts">Contacts</a>
-          <a href="/info">Info</a>
-          <a href="/admin">Admin</a>
-        </div>
-      </nav>
+{% block title %}ArroneX | AI Web Studio{% endblock %}
 
-      <section class="card hero">
-        <div class="hero-inner">
-          <div class="hero-left">
-            <div class="holo-shell">
-              <svg width="420" height="320" viewBox="0 0 460 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="robot illustration">
-                <defs>
-                  <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#2b3bd6"/><stop offset="1" stop-color="#0b66ff"/></linearGradient>
-                </defs>
-                <g transform="translate(40,18)">
-                  <ellipse cx="190" cy="260" rx="110" ry="18" fill="rgba(11,102,255,0.08)"/>
-                  <ellipse cx="170" cy="170" rx="120" ry="120" fill="#eef6ff"/>
-                  <circle cx="170" cy="150" r="72" fill="#fff" stroke="#e7f0ff" stroke-width="6"/>
-                  <circle cx="170" cy="150" r="36" fill="#081b3a"/>
-                  <circle cx="170" cy="150" r="16" fill="#0b66ff"/>
-                  <rect x="180" y="70" width="90" height="16" rx="8" fill="url(#g1)" opacity="0.85"/>
-                  <rect x="50" y="110" width="60" height="34" rx="8" fill="#fff" stroke="#e6edf7"/>
-                </g>
-              </svg>
-            </div>
-          </div>
-
-          <div class="hero-right">
-            <div class="tag">AI Sales Co-pilot</div>
-            <h1><span class="muted">The</span> <span class="accent">Future</span> of <br><span class="big">Smart Chatbots</span></h1>
-            <p class="lead">Launch multilingual AI assistants for lead capture, product discovery, support automation, and conversion optimization in days — not months.</p>
-            <div class="hero-actions">
-              <button id="runChat" class="cta">RUN CHATBOT</button>
-              <a class="cta ghost" href="/login">Book Free Strategy Call</a>
-            </div>
-            <div class="kpi-row">
-              <div class="kpi"><strong>7–14d</strong><span>delivery cycle</span></div>
-              <div class="kpi"><strong>24/7</strong><span>automated response</span></div>
-              <div class="kpi"><strong>+38%</strong><span>avg lead lift*</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="cards-grid">
-        <article class="card feature-card">
-          <h3>Conversational Commerce</h3>
-          <p class="meta">Guide visitors to the right service with contextual Q&A, qualification, and instant quote capture.</p>
-        </article>
-        <article class="card feature-card">
-          <h3>Unified Lead Pipeline</h3>
-          <p class="meta">Store leads in CSV or Firestore, review everything in one admin dashboard, and sync to CRM later.</p>
-        </article>
-        <article class="card feature-card">
-          <h3>Adaptive Brand UX</h3>
-          <p class="meta">Glassmorphism UI, responsive layout, and futuristic visual identity across all pages.</p>
-        </article>
-      </section>
-
-      <section class="card section-block">
-        <h2>How we build your AI chatbot system</h2>
-        <div class="timeline">
-          <div><strong>01</strong><p>Discovery call and conversion goals mapping.</p></div>
-          <div><strong>02</strong><p>Conversation architecture + service flows.</p></div>
-          <div><strong>03</strong><p>Integration, admin dashboard, and analytics baseline.</p></div>
-          <div><strong>04</strong><p>Go-live support and optimization sprint.</p></div>
-        </div>
-      </section>
-
-      <div id="chatModal" class="chat-modal" aria-hidden="true">
-        <div class="chat-panel card">
-          <div class="panel-header">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div class="brand-badge" style="width:40px;height:40px">AD</div>
-              <div><strong>Arrow Digital Solutions</strong><div class="meta">Chat with our AI sales assistant</div></div>
-            </div>
-            <button id="closeChat" class="close-btn">✕</button>
-          </div>
-          <div class="chat-body">
-            <div id="quickActions" class="quick-actions"></div>
-            <div id="messages" class="messages"></div>
-            <div class="input-row">
-              <input id="input" placeholder="Type your message (e.g., I need an e-commerce chatbot)" autocomplete="off">
-              <button id="send">Send</button>
-            </div>
-            <div class="footer-note">Try: "pricing", "chatbot", "consultation", or "restart".</div>
-          </div>
-        </div>
-      </div>
-
-      <button id="floatChatBtn" class="float-chat" title="Chat with us" aria-label="Open chat">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" fill="#021023" opacity="0.98"/></svg>
-      </button>
+{% block content %}
+<section class="section-card hero">
+  <div>
+    <p class="kicker">FUTURE DIGITAL SYSTEMS</p>
+    <h1>ArroneX builds premium websites, AI assistants, and automation engines.</h1>
+    <p class="lead">
+      Launch a conversion-ready digital platform with production-grade engineering, fast iterations,
+      and built-in lead intelligence. Every project includes measurable goals, analytics foundations,
+      and scalable architecture.
+    </p>
+    <div class="cta-row">
+      <button id="runChat" class="btn btn-primary" type="button">Run Chatbot</button>
+      <a href="/login" class="btn btn-secondary">Book a Strategy Call</a>
     </div>
+    <div class="stats-grid">
+      <article class="stat-card"><h3>120+</h3><p>Projects delivered</p></article>
+      <article class="stat-card"><h3>97%</h3><p>Client retention</p></article>
+      <article class="stat-card"><h3>1-3 wks</h3><p>Average launch cycle</p></article>
+      <article class="stat-card"><h3>24/7</h3><p>Automated lead capture</p></article>
+    </div>
+  </div>
 
-    <script src="/static/chat.js"></script>
-  </body>
-</html>
+  <aside class="hero-panel">
+    <h3 class="panel-title">Why teams choose ArroneX</h3>
+    <div class="hero-grid">
+      <article class="tile">
+        <h4>Growth-Centered UX</h4>
+        <p>Structure, copy, and flows focused on qualified conversions.</p>
+      </article>
+      <article class="tile">
+        <h4>AI Sales Layer</h4>
+        <p>Chatbot qualification, lead capture, and intent-driven handoff.</p>
+      </article>
+      <article class="tile">
+        <h4>Operational Automation</h4>
+        <p>Integrated notifications, CRM-ready records, and status tracking.</p>
+      </article>
+      <article class="tile">
+        <h4>Performance Engineering</h4>
+        <p>Lightweight, maintainable architecture built for scale.</p>
+      </article>
+    </div>
+  </aside>
+</section>
+
+<section class="section-card panel section-gap">
+  <div class="section-head">
+    <h2>Core Services</h2>
+    <p>End-to-end delivery from planning to launch and optimization.</p>
+  </div>
+  <div class="services-grid">
+    <article class="service-card">
+      <h3>Business Websites</h3>
+      <p>High-conversion brand sites with fast load speed and clear messaging architecture.</p>
+      <span>From $499</span>
+    </article>
+    <article class="service-card">
+      <h3>E-commerce Systems</h3>
+      <p>Storefront UX, catalog architecture, checkout optimization, and growth integrations.</p>
+      <span>From $899</span>
+    </article>
+    <article class="service-card">
+      <h3>AI Chatbot Integration</h3>
+      <p>Sales assistant flows, qualification logic, and persistent lead capture pipelines.</p>
+      <span>From $599</span>
+    </article>
+    <article class="service-card">
+      <h3>Automation Pipelines</h3>
+      <p>Workflow orchestration across forms, notifications, CRMs, and internal tools.</p>
+      <span>Custom</span>
+    </article>
+    <article class="service-card">
+      <h3>UI/UX Programs</h3>
+      <p>Interface systems, design audits, and conversion-focused journey improvements.</p>
+      <span>Custom</span>
+    </article>
+    <article class="service-card">
+      <h3>Analytics Foundations</h3>
+      <p>Event tracking, funnel monitoring, and KPI dashboards for better decisions.</p>
+      <span>Included</span>
+    </article>
+  </div>
+</section>
+
+<section class="content-grid section-gap">
+  <article class="section-card panel">
+    <div class="section-head">
+      <h2>Execution Framework</h2>
+      <p>Built for speed without losing quality.</p>
+    </div>
+    <ol class="timeline">
+      <li><strong>Discovery & Scope</strong><span>Business goals, audience, and KPI alignment.</span></li>
+      <li><strong>Design & UX Wireflows</strong><span>High-intent journeys and component systems.</span></li>
+      <li><strong>Build & Integrate</strong><span>Production implementation with chatbot and DB hooks.</span></li>
+      <li><strong>Launch & Optimize</strong><span>Monitoring, iteration, and conversion tuning.</span></li>
+    </ol>
+  </article>
+
+  <article class="section-card panel">
+    <div class="section-head">
+      <h2>Tech Stack</h2>
+      <p>Flexible stack depending on business fit.</p>
+    </div>
+    <div class="chips">
+      <span>Flask</span><span>Python</span><span>SQLite</span><span>JavaScript</span>
+      <span>Shopify</span><span>WooCommerce</span><span>Firebase</span><span>REST APIs</span>
+      <span>Automation Bots</span><span>Analytics</span>
+    </div>
+    <div class="cta-row">
+      <a href="/info" class="btn btn-secondary">View Pricing Details</a>
+    </div>
+  </article>
+</section>
+
+<section class="section-card panel section-gap">
+  <div class="section-head">
+    <h2>Frequently Asked Questions</h2>
+    <p>Quick answers before you start.</p>
+  </div>
+  <div class="faq-grid">
+    <article class="faq-item">
+      <h4>How fast can a project start?</h4>
+      <p>Most projects begin within 2-4 business days after requirement alignment.</p>
+    </article>
+    <article class="faq-item">
+      <h4>Can ArroneX handle existing systems?</h4>
+      <p>Yes. We can upgrade, redesign, or integrate with your current stack.</p>
+    </article>
+    <article class="faq-item">
+      <h4>Do you provide maintenance?</h4>
+      <p>Yes. We offer stabilization plus ongoing optimization retainers.</p>
+    </article>
+    <article class="faq-item">
+      <h4>Can chatbot leads go to CRM?</h4>
+      <p>Yes. We can route leads from database to your CRM workflows.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section-card panel section-gap cta-band">
+  <h2>Ready to scale with ArroneX?</h2>
+  <p>Start with a focused strategy call or try the live chatbot to model your sales flow.</p>
+  <div class="cta-row">
+    <button class="btn btn-primary js-open-chat" type="button">Launch Assistant</button>
+    <a class="btn btn-secondary" href="/contacts">Contact Team</a>
+  </div>
+</section>
+{% endblock %}

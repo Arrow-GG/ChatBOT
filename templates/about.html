@@ -1,28 +1,39 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>About — Arrow Digital Solutions</title>
-    <link rel="stylesheet" href="/static/style.css">
-  </head>
-  <body>
-    <div class="bg-grid"></div>
-    <div class="wrap">
-      <div class="card header-nav">
-        <div><strong>About Arrow Digital Solutions</strong><div class="meta">Building high-conversion digital experiences</div></div>
-        <div class="nav-links"><a href="/">Home</a><a href="/contacts">Contacts</a><a href="/chatbot" class="pill">ChatBot</a></div>
-      </div>
-      <div class="card section-block">
-        <h2>Who we are</h2>
-        <p class="meta">Arrow Digital Solutions is a full-service digital agency focused on high-performance websites, e-commerce platforms, AI-powered chatbots, and business automation systems.</p>
-        <div class="timeline" style="margin-top:14px">
-          <div><strong>Strategy</strong><p>We map business goals, user journeys, and conversion targets.</p></div>
-          <div><strong>Design</strong><p>Modern UI/UX with accessibility and speed at the core.</p></div>
-          <div><strong>Engineering</strong><p>Robust implementation with milestones and QA.</p></div>
-          <div><strong>Optimize</strong><p>Post-launch analytics and iterative improvements.</p></div>
-        </div>
-      </div>
+{% extends 'base.html' %}
+
+{% block title %}About | ArroneX{% endblock %}
+
+{% block content %}
+<section class="section-card panel">
+  <h1 class="page-title">About ArroneX</h1>
+  <p class="lead">
+    ArroneX is a product-driven digital agency focused on modern web engineering, AI chatbot implementation,
+    and scalable automation. We combine design precision with practical delivery.
+  </p>
+</section>
+
+<section class="content-grid" style="margin-top:16px">
+  <article class="section-card panel">
+    <h3 style="margin-top:0">How we work</h3>
+    <ul class="list-clean">
+      <li>Discovery sprint to map business goals, audience, and measurable KPIs.</li>
+      <li>Rapid UI prototyping with conversion-first information architecture.</li>
+      <li>Production engineering with maintainable, testable code.</li>
+      <li>Post-launch optimization using behavioral and funnel data.</li>
+    </ul>
+  </article>
+
+  <article class="section-card panel">
+    <h3 style="margin-top:0">Core services</h3>
+    <ul class="list-clean">
+      <li>Business website design and development</li>
+      <li>E-commerce implementation and optimization</li>
+      <li>AI chatbot sales and support assistants</li>
+      <li>Workflow automation and systems integration</li>
+      <li>UI/UX design systems and design audits</li>
+    </ul>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/contacts">Start a Project</a>
     </div>
-  </body>
-</html>
+  </article>
+</section>
+{% endblock %}

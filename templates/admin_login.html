@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Login | ArroneX{% endblock %}
+
+{% block content %}
+<section class="section-card panel">
+  <h1 class="page-title">Admin Access</h1>
+  <p class="lead">Enter admin credentials to open the dashboard.</p>
+</section>
+
+<section class="section-card panel section-gap" style="max-width:560px;margin-left:auto;margin-right:auto">
+  {% if error %}
+    <div class="success-banner" style="border-color:rgba(255,95,124,.45);background:rgba(255,95,124,.14);color:#ffd9df">{{ error }}</div>
+  {% endif %}
+
+  <form method="post" action="/admin/login">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+    <input type="hidden" name="next" value="{{ next_path or '/admin' }}" />
+    <div class="form-grid">
+      <div class="field" style="grid-column:1 / -1">
+        <label for="username">Admin Username</label>
+        <input id="username" name="username" type="text" autocomplete="username" required>
+      </div>
+      <div class="field" style="grid-column:1 / -1">
+        <label for="password">Admin Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+    </div>
+    <div class="cta-row">
+      <button class="btn btn-primary" type="submit">Login to Admin</button>
+      <a class="btn btn-secondary" href="/">Back to Home</a>
+    </div>
+  </form>
+</section>
+{% endblock %}
