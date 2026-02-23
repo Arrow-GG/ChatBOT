@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Arrow Digital Solutions — Chat</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="wrap">
+      <nav class="card header-nav">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(180deg,#0b66ff,#0858e6);display:inline-grid;place-items:center;color:#fff;font-weight:700">AD</div>
+          <div>
+            <div class="brand">Arrow Digital Solutions</div>
+          </div>
+        </div>
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/about">About us</a>
+          <a href="/chatbot" class="pill">ChatBot</a>
+          <a href="/contacts">Contacts</a>
+          <a href="/info">Info</a>
+        </div>
+      </nav>
+
+      <section class="card hero">
+        <div class="hero-inner">
+          <div class="hero-left">
+            <!-- simple robot SVG illustration (placeholder) -->
+            <svg width="460" height="360" viewBox="0 0 460 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="robot illustration">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#2b3bd6"/><stop offset="1" stop-color="#0b66ff"/></linearGradient>
+              </defs>
+              <rect x="0" y="0" width="460" height="360" rx="24" fill="none"/>
+              <g transform="translate(40,18)">
+                <ellipse cx="190" cy="260" rx="110" ry="18" fill="rgba(11,102,255,0.08)"/>
+                <g>
+                  <ellipse cx="170" cy="170" rx="120" ry="120" fill="#eef6ff"/>
+                  <circle cx="170" cy="150" r="72" fill="#fff" stroke="#e7f0ff" stroke-width="6"/>
+                  <circle cx="170" cy="150" r="36" fill="#081b3a"/>
+                  <circle cx="170" cy="150" r="16" fill="#0b66ff"/>
+                </g>
+                <g transform="translate(40,40)">
+                  <rect x="0" y="10" width="60" height="40" rx="8" fill="#fff" stroke="#e6edf7"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <div class="hero-right">
+            <h1><span class="muted">The</span> <span class="accent">AI</span> <br> <span class="big">Chat Bot</span></h1>
+            <p class="lead">Smart, reliable conversational assistants for websites and e-commerce — quick setup and free consultation.</p>
+            <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+              <button id="runChat" class="cta">RUN CHATBOT</button>
+              <a class="link-ghost">Get Started Today — Try it Free</a>
+            </div>
+            <p style="margin-top:18px;color:rgba(255,255,255,0.7)">Fast delivery: 7–14 days • Free consultation</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- chat modal panel -->
+      <div id="chatModal" class="chat-modal" aria-hidden="true">
+        <div class="chat-panel card">
+          <div class="panel-header">
+            <div style="display:flex;gap:12px;align-items:center"><div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(180deg,#0b66ff,#0858e6);display:inline-grid;place-items:center;color:#fff;font-weight:700">AD</div>
+            <div><strong>Arrow Digital Solutions</strong><div class="meta">Chat with our sales assistant</div></div></div>
+            <button id="closeChat" class="close-btn">✕</button>
+          </div>
+          <div class="chat-body">
+            <div id="messages" class="messages"></div>
+            <div class="input-row">
+              <input id="input" placeholder="Type your message (e.g., 'I need an e-commerce site')" autocomplete="off">
+              <button id="send">Send</button>
+            </div>
+            <div class="footer-note">Packages start from ₹15,000 (Business), ₹25,000 (E‑commerce), AI Chatbot from ₹18,000. Delivery 7–14 days.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- floating chat button -->
+      <button id="floatChatBtn" class="float-chat" title="Chat with us" aria-label="Open chat">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" fill="#021023" opacity="0.98"/></svg>
+      </button>
+
+    </div>
+
+    <script src="/static/chat.js"></script>
+  </body>
+</html>
