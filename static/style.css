@@ -30,6 +30,7 @@ html,
 body {
   margin: 0;
   min-height: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -40,6 +41,13 @@ body {
     radial-gradient(circle at 86% 8%, rgba(51, 232, 255, 0.15), transparent 30%),
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0, rgba(255, 255, 255, 0.025) 1px, transparent 1px, transparent 72px),
     linear-gradient(180deg, var(--bg-0), var(--bg-1));
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
 }
 
 body::before {
@@ -68,7 +76,7 @@ body::after {
 .page-shell {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 24px 20px 74px;
+  padding: 24px 20px calc(74px + env(safe-area-inset-bottom, 0px));
   transform-origin: 50% 10%;
   transition: transform 0.45s cubic-bezier(.22, .61, .36, 1), opacity 0.45s ease, filter 0.45s ease;
 }
@@ -92,7 +100,7 @@ body.menu-switching .page-shell {
   -webkit-backdrop-filter: blur(20px) saturate(170%);
   box-shadow: var(--shadow);
   position: sticky;
-  top: 14px;
+  top: max(10px, env(safe-area-inset-top, 0px));
   z-index: 100;
   overflow: hidden;
 }
@@ -164,6 +172,8 @@ body.menu-switching .page-shell {
   transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
   position: relative;
   overflow: hidden;
+  flex: 0 0 auto;
+  touch-action: manipulation;
 }
 
 .theme-toggle::before {
@@ -239,23 +249,26 @@ body.menu-switching .page-shell {
 .nav-links {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-end;
   position: relative;
   padding: 4px;
   border-radius: 999px;
+  min-width: 0;
 }
 
 .nav-links a {
+  white-space: nowrap;
   color: var(--muted);
   text-decoration: none;
-  padding: 8px 12px;
+  padding: 9px 13px;
   border-radius: 999px;
   border: 1px solid transparent;
   font-size: 14px;
   transition: 0.2s ease;
   position: relative;
   z-index: 2;
+  touch-action: manipulation;
 }
 
 .nav-links a:hover,
@@ -368,7 +381,7 @@ body.menu-switching .page-shell {
 
 .hero h1 {
   margin: 0;
-  font: 800 50px/1.04 'Space Grotesk', sans-serif;
+  font: 800 clamp(34px, 5.1vw, 50px)/1.04 'Space Grotesk', sans-serif;
   letter-spacing: -1px;
 }
 
@@ -807,7 +820,7 @@ button.btn {
   justify-content: flex-end;
   background: rgba(2, 5, 13, 0.72);
   backdrop-filter: blur(4px);
-  padding: 18px 18px 86px;
+  padding: 18px 18px calc(86px + env(safe-area-inset-bottom, 0px));
   z-index: 1200;
   opacity: 0;
   pointer-events: none;
@@ -955,6 +968,8 @@ button.btn {
   -webkit-backdrop-filter: blur(10px);
   color: #f4f7ff;
   padding: 11px 14px;
+  min-height: 44px;
+  font-size: 16px;
 }
 
 .chat-input button {
@@ -964,7 +979,10 @@ button.btn {
   color: #091128;
   font-weight: 700;
   background: linear-gradient(120deg, var(--cyan), var(--amber));
-  padding: 0 16px;
+  padding: 0 18px;
+  min-width: 84px;
+  min-height: 44px;
+  touch-action: manipulation;
 }
 
 .chat-note {
@@ -989,6 +1007,7 @@ button.btn {
   background: linear-gradient(120deg, var(--cyan), var(--amber));
   box-shadow: 0 15px 30px rgba(51, 232, 255, 0.3);
   z-index: 1100;
+  touch-action: manipulation;
 }
 
 body.chat-open {
@@ -1056,6 +1075,31 @@ body.page-transitioning::after {
 }
 
 @media (max-width: 1080px) {
+  .topbar {
+    border-radius: 20px;
+    padding: 10px 12px;
+  }
+
+  .brand-wrap {
+    min-width: 0;
+  }
+
+  .nav-links {
+    flex: 1;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    padding: 8px 11px;
+  }
+
   .hero,
   .content-grid {
     grid-template-columns: 1fr;
@@ -1073,25 +1117,31 @@ body.page-transitioning::after {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .hero h1 {
-    font-size: 40px;
+  .hero {
+    padding: 24px;
   }
 }
 
 @media (max-width: 760px) {
   .topbar {
     border-radius: 18px;
-    align-items: flex-start;
+    align-items: stretch;
     flex-direction: column;
+    gap: 12px;
+    top: 8px;
   }
 
   .theme-toggle {
-    width: 100%;
+    width: 52px;
+    align-self: flex-end;
     justify-content: center;
   }
 
   .nav-links {
     justify-content: flex-start;
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 6px;
   }
 
   .nav-bubble {
@@ -1099,17 +1149,40 @@ body.page-transitioning::after {
   }
 
   .brand-logo {
-    width: 260px;
+    width: min(245px, 74vw);
     height: 44px;
   }
 
   .page-shell {
-    padding: 16px 14px 76px;
+    padding: 14px 12px calc(82px + env(safe-area-inset-bottom, 0px));
   }
 
   .hero,
   .panel {
-    padding: 18px;
+    padding: 16px;
+  }
+
+  .hero {
+    gap: 16px;
+  }
+
+  .hero h1 {
+    letter-spacing: -0.5px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .btn,
+  button.btn {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .cta-row {
+    flex-direction: column;
   }
 
   .services-grid,
@@ -1125,6 +1198,7 @@ body.page-transitioning::after {
     padding: 0;
     align-items: flex-end;
     justify-content: center;
+    backdrop-filter: blur(2px);
   }
 
   .chat-brand-logo {
@@ -1139,9 +1213,9 @@ body.page-transitioning::after {
   .chat-card {
     width: 100%;
     max-width: 100%;
-    min-height: 72vh;
-    height: min(86vh, 760px);
-    max-height: 86vh;
+    min-height: 68dvh;
+    height: min(84dvh, 760px);
+    max-height: 84dvh;
     border-radius: 18px 18px 0 0;
     border-bottom: 0;
     border-left: 0;
@@ -1149,6 +1223,46 @@ body.page-transitioning::after {
     transform-origin: center bottom;
   }
 
+  .messages {
+    padding: 14px;
+  }
+
+  .bubble {
+    max-width: 88%;
+    font-size: 13px;
+  }
+
+  .chat-input {
+    padding: 10px;
+    gap: 6px;
+  }
+
+  .chat-note {
+    font-size: 11px;
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .float-chat {
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    width: 54px;
+    height: 54px;
+  }
+
+}
+
+@media (max-width: 560px) {
+  .section-head h2 {
+    font-size: 24px;
+  }
+
+  .page-title {
+    font-size: 30px;
+  }
+
+  .data-table {
+    min-width: 620px;
+  }
 }
 
 @media (max-width: 1180px) and (min-width: 761px) {
@@ -1157,9 +1271,20 @@ body.page-transitioning::after {
   }
 
   .chat-card {
-    width: min(440px, 42vw);
+    width: min(430px, 46vw);
     height: min(720px, calc(100dvh - 108px));
     max-height: calc(100dvh - 108px);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .section-card:hover,
+  .service-card:hover,
+  .faq-item:hover,
+  .tile:hover,
+  .stat-card:hover {
+    border-color: var(--glass-edge);
+    box-shadow: var(--shadow);
   }
 }
 

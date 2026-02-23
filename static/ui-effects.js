@@ -2,6 +2,7 @@
   const root = document.documentElement;
   const STORAGE_KEY = 'arronex-theme';
   const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const COARSE_POINTER = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
   function getRippleOrigin(event) {
     if (event && typeof event.clientX === 'number' && typeof event.clientY === 'number' && (event.clientX || event.clientY)) {
@@ -104,13 +105,17 @@
           }
         });
       },
-      { threshold: 0.16 }
+      {
+        threshold: COARSE_POINTER ? 0.1 : 0.16,
+        rootMargin: COARSE_POINTER ? '0px 0px -8% 0px' : '0px 0px -4% 0px',
+      }
     );
 
     items.forEach((el) => observer.observe(el));
   }
 
   function initTilt() {
+    if (REDUCED_MOTION || COARSE_POINTER) return;
     const interactive = document.querySelectorAll('.service-card, .tile, .faq-item, .stat-card, .metric-card');
     interactive.forEach((card) => {
       card.classList.add('fx-3d');
@@ -171,6 +176,7 @@
   }
 
   function initParallaxGlow() {
+    if (COARSE_POINTER) return;
     const hero = document.querySelector('.hero');
     if (!hero) return;
 
@@ -185,7 +191,7 @@
   }
 
   function initScrollDepth() {
-    if (REDUCED_MOTION) return;
+    if (REDUCED_MOTION || COARSE_POINTER) return;
 
     const depthItems = document.querySelectorAll('.hero, .hero-panel, .section-card.panel, .content-grid > .section-card');
     if (!depthItems.length) return;
@@ -235,7 +241,7 @@
   }
 
   function initPointerParallax() {
-    if (REDUCED_MOTION) return;
+    if (REDUCED_MOTION || COARSE_POINTER) return;
     const hero = document.querySelector('.hero');
     if (!hero) return;
 
@@ -257,6 +263,8 @@
     const links = nav ? Array.from(nav.querySelectorAll('a')) : [];
     if (!nav || !bubble || links.length === 0) return;
 
+    const bubbleEnabled = () => window.innerWidth > 760 && !COARSE_POINTER;
+
     const moveTo = (link, immediate = false) => {
       const navRect = nav.getBoundingClientRect();
       const linkRect = link.getBoundingClientRect();
@@ -273,13 +281,23 @@
     };
 
     const activeLink = nav.querySelector('a.active') || links[0];
-    moveTo(activeLink, true);
+    if (bubbleEnabled()) {
+      moveTo(activeLink, true);
+    }
 
     links.forEach((link) => {
-      link.addEventListener('mouseenter', () => moveTo(link));
-      link.addEventListener('focus', () => moveTo(link));
-      link.addEventListener('mouseleave', () => moveTo(activeLink));
-      link.addEventListener('blur', () => moveTo(activeLink));
+      link.addEventListener('mouseenter', () => {
+        if (bubbleEnabled()) moveTo(link);
+      });
+      link.addEventListener('focus', () => {
+        if (bubbleEnabled()) moveTo(link);
+      });
+      link.addEventListener('mouseleave', () => {
+        if (bubbleEnabled()) moveTo(activeLink);
+      });
+      link.addEventListener('blur', () => {
+        if (bubbleEnabled()) moveTo(activeLink);
+      });
 
       link.addEventListener('click', (event) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === '_blank') return;
@@ -291,7 +309,7 @@
         if (targetUrl.pathname === window.location.pathname && targetUrl.search === window.location.search) return;
 
         event.preventDefault();
-        moveTo(link);
+        if (bubbleEnabled()) moveTo(link);
         nav.classList.add('nav-switching');
         document.body.classList.add('menu-switching');
         setTimeout(() => {
@@ -300,7 +318,12 @@
       });
     });
 
-    window.addEventListener('resize', () => moveTo(nav.querySelector('a.active') || activeLink, true));
+    window.addEventListener('resize', () => {
+      const currentActive = nav.querySelector('a.active') || activeLink;
+      if (bubbleEnabled()) {
+        moveTo(currentActive, true);
+      }
+    });
   }
 
   window.addEventListener('DOMContentLoaded', () => {
