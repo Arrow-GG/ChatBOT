@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: arronex-web
+    runtime: python
+    plan: free
+    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 2 --threads 4 --timeout 120
+    envVars:
+      - key: FLASK_SECRET_KEY
+        generateValue: true
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: FIREBASE_ADMIN_COLLECTION
+        value: admin_users
+      - key: FIREBASE_SERVICE_ACCOUNT_JSON
+        sync: false

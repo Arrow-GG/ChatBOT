@@ -1,57 +1,107 @@
-# Arrow Digital Solutions — AI Sales Assistant (Demo)
+# ArroneX Web App
 
-This is a minimal demo of the AI Sales Assistant for Arrow Digital Solutions.
+Production-ready Flask app with:
+- Marketing pages + animated UI
+- AI sales chatbot
+- Lead capture and admin dashboard
+- Admin authentication (with Firebase support)
 
-Features:
-- Rule-based chat flow for service selection and lead qualification
-- Collects Full Name, Email, Phone, and Brief Project Requirement
-- Confirms submission and replies: "Thank you. Our team will contact you within 24 hours for a free consultation."
+## Local Run
 
-Quick start:
-
-1. Create and activate a Python virtual environment (recommended)
+1. Create and activate virtual environment:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-2. Install requirements
+2. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Run the app
+3. Run:
 
 ```bash
 python app.py
 ```
 
-4. Open http://localhost:5000 in a browser and interact with the assistant.
+4. Open:
 
-Notes:
-- This demo is rule-based and keeps lead data in the session (in-memory). Integrate with a CRM or database for production.
-- Change `app.secret_key` to a secure value before deploying.
+`http://127.0.0.1:5000`
 
-VS Code
+## Admin Login
 
-- Open this folder in VS Code.
-- Install the Python extension (if not installed).
-- Create a virtual environment and install requirements as above.
-- Use the Run view and select the `Run app.py` configuration, or press F5 to launch the app in the integrated terminal.
+Default local fallback credentials:
+- Username: `admin`
+- Password: `arronex@admin`
 
-Troubleshooting
+Set env vars to override:
+- `ADMIN_USERNAME`
+- `ADMIN_PASSWORD`
 
-- If port 5000 is in use, stop the other process or change the port in `app.py`.
-- For production, wire the lead capture to a database or CRM and secure the secret key.
+## Deploy (Render)
 
-Firebase integration
+This repo includes `render.yaml` for one-click deploy.
 
-- To enable the admin dashboard to read/write leads from Firestore (client-side), create a Firebase project and a Firestore database.
-- Create the file `static/firebase-config.js` and set `window.firebaseConfig` to your project's web config (see placeholder in the file).
-- Ensure Firestore rules allow reads/writes from your admin environment or use proper authentication for production.
+### Steps
 
-Server-side fallback
+1. Push this project to GitHub.
+2. In Render: **New +** -> **Blueprint**.
+3. Select your repo.
+4. Set required secret env vars in Render:
+   - `ADMIN_PASSWORD`
+   - `FIREBASE_SERVICE_ACCOUNT_JSON` (optional, for Firebase-backed admin users)
+5. Deploy.
 
-- The app stores incoming leads to `leads.csv` in the project folder by default when a lead is submitted. The admin dashboard will show this CSV when Firebase is not configured.
+Render uses:
+- Build: `pip install -r requirements.txt`
+- Start: `gunicorn app:app --workers 2 --threads 4 --timeout 120`
+
+## Deploy (Other Hosts)
+
+A `Procfile` is included:
+
+```txt
+web: gunicorn app:app --workers 2 --threads 4 --timeout 120
+```
+
+Use this on Railway/Heroku-style platforms.
+
+## Environment Variables
+
+### Required for production
+- `FLASK_SECRET_KEY` (strong random string)
+- `ADMIN_PASSWORD`
+
+### Optional
+- `ADMIN_USERNAME` (default `admin`)
+- `FIREBASE_ADMIN_COLLECTION` (default `admin_users`)
+- `FIREBASE_SERVICE_ACCOUNT_JSON` (raw JSON of Firebase service account)
+- `FIREBASE_SERVICE_ACCOUNT` or `GOOGLE_APPLICATION_CREDENTIALS` (path-based credential alternative)
+
+## Firebase Admin Accounts
+
+If Firebase credentials are configured, admin login checks Firestore first:
+
+- Collection: `admin_users`
+- Document ID: username (example: `admin`)
+- Fields:
+  - `username`
+  - `password_hash` (recommended, Werkzeug hash)
+  - `active` (`true`/`false`)
+
+If Firebase is unavailable, local env fallback (`ADMIN_USERNAME`/`ADMIN_PASSWORD`) still works.
+
+## Security Implemented for Admin
+
+- Admin route protection (`/admin` requires login)
+- Rate limiting on admin APIs (`/metrics`, `/leads`)
+- Brute-force throttling + lockout on `/admin/login`
+- CSRF token protection on admin login/logout forms
+
+## Notes
+
+- SQLite is used for local lead storage.
+- For long-term production data persistence, use managed DB/Firestore.
