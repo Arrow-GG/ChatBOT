@@ -7,24 +7,21 @@
     <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
+    <div class="bg-grid"></div>
     <div class="wrap">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <h2>Admin Dashboard — Leads</h2>
-        <div>
-          <a href="/" class="link-ghost">Open Site</a>
-        </div>
+      <div class="card header-nav">
+        <div><strong>Admin Dashboard — Leads</strong><div class="meta">Realtime sales pipeline overview</div></div>
+        <div class="nav-links"><a href="/">Open Site</a><a href="/chatbot" class="pill">Open Chat</a></div>
       </div>
 
-      <div class="card" style="padding:18px">
-        <p class="meta">If you configure Firebase, this dashboard will pull leads from Firestore. Otherwise the server reads `leads.csv`.</p>
+      <div class="card section-block">
+        <p class="meta">If Firebase is configured, this dashboard reads Firestore first. Otherwise it falls back to local CSV.</p>
         <div id="leadsArea">Loading leads…</div>
       </div>
     </div>
 
     <script src="/static/admin.js"></script>
-    <!-- Optional: user should provide /static/firebase-config.js with their Firebase config object as window.firebaseConfig -->
     <script src="/static/firebase-config.js"></script>
-    <!-- Firebase SDK (modular) via CDN for client-side Firestore access if configured -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
   </body>

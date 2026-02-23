@@ -43,6 +43,25 @@ def is_positive_intent(msg):
     return any(k in msg for k in keywords)
 
 
+def is_greeting(msg):
+    m = (msg or "").strip().lower()
+    return m in {"hi", "hello", "hey", "good morning", "good afternoon", "good evening"}
+
+
+def asks_pricing(msg):
+    m = (msg or "").lower()
+    return any(k in m for k in ["price", "pricing", "cost", "budget", "charges", "fee"])
+
+
+def service_menu_text():
+    return (
+        "We offer: Business Website Development (from ₹15,000), "
+        "E-commerce (from ₹25,000), AI Chatbot Integration (from ₹18,000), "
+        "Business Automation Systems, and UI/UX Design. "
+        "Which service are you interested in?"
+    )
+
+
 def match_service(msg):
     s = msg.lower()
     if "ecom" in s or "shop" in s or "store" in s:
@@ -92,7 +111,14 @@ def chat():
     if "state" not in session:
         reset_session()
 
+    if not msg:
+        return jsonify({"reply": "Please type a message so I can help you."})
+
     state = session["state"]
+
+    if msg.lower() in {"restart", "reset", "start over", "new chat"}:
+        reset_session()
+        return jsonify({"reply": "Sure — I restarted our chat. " + service_menu_text()})
 
     # Start trigger
     if msg == "__start__":
@@ -107,6 +133,11 @@ def chat():
 
     # Awaiting service selection
     if state == "await_service":
+        if is_greeting(msg):
+            return jsonify({"reply": "Hello! " + service_menu_text()})
+        if asks_pricing(msg):
+            return jsonify({"reply": service_menu_text()})
+
         svc = match_service(msg)
         if svc:
             session["selected_service"] = svc
@@ -132,6 +163,8 @@ def chat():
 
     # Lead collection flow
     if state == "collect_name":
+        if len(msg) < 2:
+            return jsonify({"reply": "Please share your full name (at least 2 characters)."})
         session["lead"]["name"] = msg
         session["state"] = "collect_email"
         return jsonify({"reply": "Thanks. Please provide your email address."})
@@ -179,6 +212,9 @@ def chat():
                 "reply": "Thank you. Our team will contact you within 24 hours for a free consultation.",
                 "lead": payload
             })
+        if msg.lower() in ("no", "n", "edit", "change"):
+            session["state"] = "collect_requirement"
+            return jsonify({"reply": "No problem — please share the updated project requirement."})
         else:
             session["state"] = "collect_requirement"
             return jsonify({"reply": "Okay — please re-enter a brief project requirement."})

@@ -7,29 +7,30 @@
     <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
+    <div class="bg-grid"></div>
     <div class="wrap">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <h2>Contact Us</h2>
-        <div><a href="/" class="link-ghost">Home</a></div>
+      <div class="card header-nav">
+        <div><strong>Contact Us</strong><div class="meta">Let's build your next AI-powered growth system</div></div>
+        <div class="nav-links"><a href="/">Home</a><a href="/info">Info</a><a href="/chatbot" class="pill">ChatBot</a></div>
       </div>
-      <div class="card" style="padding:28px;display:flex;gap:28px">
-        <div style="flex:1">
-          <h3>Get in touch</h3>
-          <p class="meta">Email: <a href="mailto:contact@arrowdigital.example">contact@arrowdigital.example</a><br>Phone: +91 90000 00000</p>
-          <p>We're available for projects, consultations, and support. Choose the option that suits you:</p>
-          <ul>
-            <li><strong>Quick chat:</strong> Use the chat (bottom-right) for immediate questions.</li>
-            <li><strong>Request consultation:</strong> Use the button below to schedule a free consultation.</li>
-            <li><strong>Sales & partnerships:</strong> Email our partnerships team at <a href="mailto:partners@arrowdigital.example">partners@arrowdigital.example</a>.</li>
-          </ul>
-          <p style="margin-top:12px"><a class="cta" href="/login">Request a Consultation</a></p>
-        </div>
-        <div style="width:420px">
+      <section class="cards-grid">
+        <article class="card feature-card">
+          <h3>Email</h3>
+          <p class="meta"><a href="mailto:contact@arrowdigital.example">contact@arrowdigital.example</a></p>
+        </article>
+        <article class="card feature-card">
+          <h3>Phone</h3>
+          <p class="meta">+91 90000 00000</p>
+        </article>
+        <article class="card feature-card">
           <h3>Office</h3>
-          <p class="meta">Arrow Digital Solutions<br>123 Tech Park, Bangalore, India</p>
-          <h3 style="margin-top:12px">Business hours</h3>
-          <p class="meta">Mon–Fri: 9:30 AM – 6:00 PM IST</p>
-        </div>
+          <p class="meta">123 Tech Park, Bangalore, India</p>
+        </article>
+      </section>
+      <div class="card section-block" style="margin-top:16px">
+        <h3>Business Hours</h3>
+        <p class="meta">Mon–Fri: 9:30 AM – 6:00 PM IST</p>
+        <a class="cta" href="/login">Request a Free Consultation</a>
       </div>
     </div>
   </body>
