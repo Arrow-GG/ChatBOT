@@ -61,13 +61,56 @@
 
     const toggle = document.getElementById('themeToggle');
     if (toggle) {
-      toggle.addEventListener('click', (event) => {
-        const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      let pointerStartX = null;
+      let pointerStartY = null;
+      let swipeHandled = false;
+      let ignoreClickUntil = 0;
+
+      const setTheme = (next, event) => {
+        if (root.getAttribute('data-theme') === next) return;
         const delay = runThemeRipple(event);
         window.setTimeout(() => {
           applyTheme(next);
           localStorage.setItem(STORAGE_KEY, next);
         }, delay);
+      };
+
+      const onPointerDown = (event) => {
+        pointerStartX = event.clientX;
+        pointerStartY = event.clientY;
+        swipeHandled = false;
+      };
+
+      const onPointerMove = (event) => {
+        if (pointerStartX === null || pointerStartY === null || swipeHandled) return;
+        const dx = event.clientX - pointerStartX;
+        const dy = event.clientY - pointerStartY;
+
+        // Require deliberate horizontal gesture to avoid accidental toggles.
+        if (Math.abs(dx) < 16 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+
+        swipeHandled = true;
+        ignoreClickUntil = Date.now() + 280;
+        const next = dx > 0 ? 'light' : 'dark';
+        setTheme(next, event);
+      };
+
+      const onPointerEnd = () => {
+        pointerStartX = null;
+        pointerStartY = null;
+      };
+
+      toggle.addEventListener('pointerdown', onPointerDown, { passive: true });
+      toggle.addEventListener('pointermove', onPointerMove, { passive: true });
+      toggle.addEventListener('pointerup', onPointerEnd, { passive: true });
+      toggle.addEventListener('pointercancel', onPointerEnd, { passive: true });
+
+      toggle.addEventListener('click', (event) => {
+        if (Date.now() < ignoreClickUntil) {
+          return;
+        }
+        const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        setTheme(next, event);
       });
     }
   }
