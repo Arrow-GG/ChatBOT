@@ -1600,27 +1600,39 @@ body.page-transitioning::after {
   }
 
   .theme-toggle {
-    width: 100%;
-    min-height: 46px;
-    order: 7;
-    margin-top: 4px;
+    width: 92px;
+    min-height: 42px;
+    order: initial;
+    margin-top: 0;
+    justify-self: center;
   }
 
   .nav-links {
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-content: stretch;
     overflow: visible;
     width: 100%;
     padding-bottom: 0;
-    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .nav-links a {
-    flex: 1 1 calc(33.333% - 8px);
+    flex: none;
     text-align: center;
     min-height: 40px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    padding: 10px 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(115, 142, 255, 0.14);
+  }
+
+  .nav-links .theme-toggle {
+    grid-column: 1 / -1;
+    justify-self: center;
   }
 
   .nav-bubble {
