@@ -49,8 +49,9 @@
     root.setAttribute("data-theme", theme);
     const toggle = document.getElementById("themeToggle");
     if (!toggle) return;
-    toggle.classList.remove("is-dragging");
+    toggle.classList.remove("is-dragging", "is-armed");
     toggle.style.removeProperty("--thumb-x");
+    toggle.style.removeProperty("--drag-progress");
     const label = toggle.querySelector(".theme-text");
     const icon = toggle.querySelector(".theme-icon");
     toggle.classList.toggle("is-light", theme === "light");
@@ -59,7 +60,7 @@
       label.textContent = theme === "light" ? "Light mode" : "Dark mode";
     }
     if (icon) {
-      icon.textContent = theme === "light" ? "☀" : "☽";
+      icon.textContent = theme === "light" ? "\u263c" : "\u263e";
     }
     toggle.setAttribute(
       "aria-label",
@@ -86,7 +87,8 @@
       let startThumbX = 0;
       let moved = false;
       let ignoreClickUntil = 0;
-      const DRAG_DISTANCE_THRESHOLD = 12;
+      const DRAG_DISTANCE_THRESHOLD = 8;
+      const DRAG_AXIS_LOCK_RATIO = 1.35;
 
       const setTheme = (next, event) => {
         if (root.getAttribute("data-theme") === next) return;
@@ -95,24 +97,37 @@
         localStorage.setItem(STORAGE_KEY, next);
       };
 
-      const getMaxThumbX = () =>
-        50;
+      const getMaxThumbX = () => {
+        const width = toggle.clientWidth || 92;
+        return Math.max(0, width - 42);
+      };
 
       const setDragThumb = (x) => {
-        const clamped = Math.min(getMaxThumbX(), Math.max(0, x));
+        const max = getMaxThumbX();
+        const clamped = Math.min(max, Math.max(0, x));
         toggle.style.setProperty("--thumb-x", `${clamped}px`);
+        toggle.style.setProperty(
+          "--drag-progress",
+          max > 0 ? `${clamped / max}` : "0",
+        );
         return clamped;
+      };
+
+      const clearDragState = () => {
+        toggle.classList.remove("is-dragging", "is-armed");
+        toggle.style.removeProperty("--thumb-x");
+        toggle.style.removeProperty("--drag-progress");
       };
 
       const onPointerDown = (event) => {
         if (!event.isPrimary || event.button !== 0) return;
-        if (event.pointerType === "mouse") return;
         pointerId = event.pointerId;
         pointerStartX = event.clientX;
         pointerStartY = event.clientY;
         moved = false;
         startThumbX =
           root.getAttribute("data-theme") === "dark" ? getMaxThumbX() : 0;
+        toggle.classList.add("is-armed");
         if (toggle.setPointerCapture) {
           toggle.setPointerCapture(event.pointerId);
         }
@@ -123,7 +138,7 @@
         const dx = event.clientX - pointerStartX;
         const dy = event.clientY - pointerStartY;
         if (!moved && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
-        if (!moved && Math.abs(dy) > Math.abs(dx) * 1.25) return;
+        if (!moved && Math.abs(dy) > Math.abs(dx) * DRAG_AXIS_LOCK_RATIO) return;
         if (!moved) {
           moved = true;
           toggle.classList.add("is-dragging");
@@ -146,14 +161,10 @@
           ignoreClickUntil = Date.now() + 280;
           setTheme(nextTheme, event);
         } else {
-          // Suppress synthetic click after any drag motion to avoid double-animation glitch.
           if (moved) {
             ignoreClickUntil = Date.now() + 280;
           }
-          toggle.classList.remove("is-dragging");
-          if (moved) {
-            toggle.style.removeProperty("--thumb-x");
-          }
+          clearDragState();
         }
 
         if (
@@ -166,6 +177,7 @@
         pointerId = null;
         pointerStartX = 0;
         pointerStartY = 0;
+        toggle.classList.remove("is-armed");
       };
 
       toggle.addEventListener("pointerdown", onPointerDown, { passive: true });
@@ -174,7 +186,6 @@
       toggle.addEventListener("pointercancel", onPointerEnd);
 
       toggle.addEventListener("click", (event) => {
-        // Allow click to work even during drag animation
         const currentTheme = root.getAttribute("data-theme");
         if (currentTheme && Date.now() < ignoreClickUntil) {
           event.preventDefault();
@@ -183,6 +194,19 @@
         const next = currentTheme === "light" ? "dark" : "light";
         ignoreClickUntil = 0;
         setTheme(next, event);
+      });
+
+      toggle.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+        event.preventDefault();
+        const next = event.key === "ArrowRight" ? "dark" : "light";
+        setTheme(next, event);
+      });
+
+      toggle.addEventListener("pointerleave", () => {
+        if (pointerId === null) {
+          toggle.classList.remove("is-armed");
+        }
       });
     }
   }
@@ -506,11 +530,9 @@
       button.addEventListener("click", () => {
         const tabName = button.getAttribute("data-tab");
 
-        // Remove active class from all buttons and contents
         tabButtons.forEach((btn) => btn.classList.remove("active"));
         tabContents.forEach((content) => content.classList.remove("active"));
 
-        // Add active class to clicked button and corresponding content
         button.classList.add("active");
         const activeContent = document.getElementById(`tab-${tabName}`);
         if (activeContent) {
@@ -528,7 +550,6 @@
         card.classList.toggle("flipped");
       });
 
-      // Mobile touch support
       card.addEventListener("touchend", (e) => {
         if (e.cancelable) {
           e.preventDefault();

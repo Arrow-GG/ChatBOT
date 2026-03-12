@@ -293,6 +293,10 @@ body.menu-switching .page-shell {
   box-shadow: 0 12px 22px rgba(95, 139, 255, 0.26);
 }
 
+.theme-toggle.is-armed {
+  transform: translateY(-1px) scale(1.015);
+}
+
 .theme-toggle.is-dark .theme-icon {
   color: #f6f7ff;
   text-shadow: 0 0 10px rgba(212, 220, 255, 0.45);
@@ -323,6 +327,11 @@ body.menu-switching .page-shell {
 .theme-toggle.is-dragging::after,
 .theme-toggle.is-dragging .theme-icon {
   transition: none;
+}
+
+.theme-toggle.is-dragging {
+  cursor: grabbing;
+  box-shadow: 0 14px 24px rgba(95, 139, 255, 0.34);
 }
 
 .nav-links {
