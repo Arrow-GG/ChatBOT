@@ -41,6 +41,14 @@ Set env vars to override:
 - `ADMIN_USERNAME`
 - `ADMIN_PASSWORD`
 
+For WhatsApp lead alerts, also set:
+- `TWILIO_ACCOUNT_SID`
+- `TWILIO_AUTH_TOKEN`
+- `TWILIO_WHATSAPP_FROM`
+- `ADMIN_WHATSAPP_TO`
+
+You can copy values from `.env.example`.
+
 ## Deploy (Render)
 
 This repo includes `render.yaml` for one-click deploy.
@@ -52,6 +60,10 @@ This repo includes `render.yaml` for one-click deploy.
 3. Select your repo.
 4. Set required secret env vars in Render:
    - `ADMIN_PASSWORD`
+   - `TWILIO_ACCOUNT_SID` (optional, for WhatsApp alerts)
+   - `TWILIO_AUTH_TOKEN` (optional, for WhatsApp alerts)
+   - `TWILIO_WHATSAPP_FROM` (optional, for WhatsApp alerts)
+   - `ADMIN_WHATSAPP_TO` (optional, for WhatsApp alerts)
    - `FIREBASE_SERVICE_ACCOUNT_JSON` (optional, for Firebase-backed admin users)
 5. Deploy.
 
@@ -80,6 +92,32 @@ Use this on Railway/Heroku-style platforms.
 - `FIREBASE_ADMIN_COLLECTION` (default `admin_users`)
 - `FIREBASE_SERVICE_ACCOUNT_JSON` (raw JSON of Firebase service account)
 - `FIREBASE_SERVICE_ACCOUNT` or `GOOGLE_APPLICATION_CREDENTIALS` (path-based credential alternative)
+- `TWILIO_ACCOUNT_SID` (Twilio account SID for WhatsApp notifications)
+- `TWILIO_AUTH_TOKEN` (Twilio auth token)
+- `TWILIO_WHATSAPP_FROM` (example: `whatsapp:+14155238886`)
+- `ADMIN_WHATSAPP_TO` (example: `whatsapp:+916000429946`)
+
+## WhatsApp Lead Alerts
+
+When WhatsApp env vars are configured, every saved lead can also trigger a
+WhatsApp notification to the admin number.
+
+This includes:
+- consultation form submissions
+- chatbot lead confirmations
+
+The notification contains:
+- name
+- email
+- phone
+- service
+- source
+- requirement
+- recent chat transcript when available
+
+Twilio WhatsApp setup notes:
+- Use Twilio Sandbox for testing, or an approved WhatsApp sender in production.
+- `TWILIO_WHATSAPP_FROM` and `ADMIN_WHATSAPP_TO` must include the `whatsapp:` prefix.
 
 ## Firebase Admin Accounts
 

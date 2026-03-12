@@ -3,18 +3,37 @@
 {% block title %}Consultation | ArroneX{% endblock %}
 
 {% block content %}
-<section class="section-card panel">
-  <h1 class="page-title">Request a Consultation</h1>
-  <p class="lead">Share your project goals and we will come back with a proposal and timeline.</p>
+<section class="section-card panel page-hero reveal" data-reveal-delay="80ms">
+  <div class="page-hero-copy">
+    <p class="kicker">CONSULTATION REQUEST</p>
+    <h1 class="page-title">Share your project direction and we’ll respond with the right next move.</h1>
+    <p class="lead">
+      Use this page when you already know you want a proposal, scope review, or
+      structured consultation. Keep it simple; even a rough summary is enough
+      to start.
+    </p>
+  </div>
+  <aside class="page-hero-side">
+    <div class="contact-promise-card reveal" data-reveal-delay="120ms">
+      <p class="pricing-label">What You’ll Get</p>
+      <h3>A practical reply, not a generic sales script.</h3>
+      <p>We respond with likely scope direction, timeline context, and the best path forward.</p>
+    </div>
+  </aside>
 </section>
 
-<section class="content-grid" style="margin-top:16px">
-  <article class="section-card panel">
+<section class="content-grid section-gap">
+  <article class="section-card panel reveal" data-reveal-delay="160ms">
     {% if success %}
       <div class="success-banner">
         Thanks{{ ' ' + email if email else '' }}. Your request was received and our team will reach out within 24 hours.
       </div>
     {% endif %}
+
+    <div class="section-head">
+      <h2 class="gradient-text">Project Request Form</h2>
+      <p>Send the essentials and we’ll take it from there.</p>
+    </div>
 
     <form id="consultForm" method="post" action="/login">
       <div class="form-grid">
@@ -38,13 +57,28 @@
     </form>
   </article>
 
-  <article class="section-card panel">
-    <h3 style="margin-top:0">What happens next</h3>
-    <ul class="list-clean">
-      <li>Discovery call to lock requirements and priorities.</li>
-      <li>Architecture and roadmap with delivery phases.</li>
-      <li>Proposal with scope, milestones, and pricing.</li>
-    </ul>
+  <article class="section-card panel reveal" data-reveal-delay="200ms">
+    <div class="section-head">
+      <h2 class="gradient-text">What Happens Next</h2>
+      <p>The follow-up is structured so nothing important gets lost.</p>
+    </div>
+    <div class="phase-grid phase-grid-tight">
+      <article class="phase-card reveal" data-reveal-delay="220ms">
+        <span class="phase-step">01</span>
+        <h3>Review</h3>
+        <p>We look at goals, constraints, and likely project fit.</p>
+      </article>
+      <article class="phase-card reveal" data-reveal-delay="240ms">
+        <span class="phase-step">02</span>
+        <h3>Clarify</h3>
+        <p>If needed, we ask a few tight questions to clean up scope.</p>
+      </article>
+      <article class="phase-card reveal" data-reveal-delay="260ms">
+        <span class="phase-step">03</span>
+        <h3>Recommend</h3>
+        <p>We suggest the best package, process, or build direction.</p>
+      </article>
+    </div>
   </article>
 </section>
 {% endblock %}

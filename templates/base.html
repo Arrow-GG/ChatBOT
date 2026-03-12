@@ -47,10 +47,23 @@
           <div class="chat-head">
             <div class="chat-brand">
               <img src="/static/arronex-logo.svg" alt="ArroneX" class="chat-brand-logo">
-              <h3>ArroneX AI Sales Assistant</h3>
+              <div class="chat-brand-copy">
+                <h3>ArroneX AI Sales Assistant</h3>
+                <p id="chatStageLabel" class="chat-stage-label">Service matching</p>
+              </div>
             </div>
-            <button id="closeChat" class="chat-close" aria-label="Close chat">&times;</button>
+            <div class="chat-head-actions">
+              <button id="resetChat" class="chat-reset" type="button">New chat</button>
+              <button id="closeChat" class="chat-close" aria-label="Close chat">&times;</button>
+            </div>
           </div>
+          <div class="chat-hero-strip">
+            <div class="chat-hero-copy">
+              <strong>Get matched to the right service faster.</strong>
+              <span>Pick a service, answer a few questions, and we will capture the brief for the team.</span>
+            </div>
+          </div>
+          <div id="chatSuggestions" class="chat-suggestions" aria-live="polite"></div>
           <div id="messages" class="messages"></div>
           <div class="chat-input">
             <input id="input" autocomplete="off" placeholder="Type your message..." />

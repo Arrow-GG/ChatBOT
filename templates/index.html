@@ -1,45 +1,67 @@
-{% extends 'base.html' %}
-
-{% block title %}ArroneX | AI Web Studio{% endblock %}
-
+{% extends 'base.html' %} {% block title %}ArroneX | AI Web Studio{% endblock %}
 {% block content %}
-<section class="section-card hero">
+<section class="section-card hero reveal" data-reveal-delay="100ms">
   <div>
     <p class="kicker">FUTURE DIGITAL SYSTEMS</p>
-    <h1>ArroneX builds premium websites, AI assistants, and automation engines.</h1>
+    <h1 class="gradient-text">
+      ArroneX builds premium websites, AI assistants, and automation engines.
+    </h1>
     <p class="lead">
-      Launch a conversion-ready digital platform with production-grade engineering, fast iterations,
-      and built-in lead intelligence. Every project includes measurable goals, analytics foundations,
-      and scalable architecture.
+      Launch a conversion-ready digital platform with production-grade
+      engineering, fast iterations, and built-in lead intelligence. Every
+      project includes measurable goals, analytics foundations, and scalable
+      architecture.
     </p>
     <div class="cta-row">
-      <button id="runChat" class="btn btn-primary" type="button">Run Chatbot</button>
-      <a href="/login" class="btn btn-secondary">Book a Strategy Call</a>
+      <button id="runChat" class="btn btn-primary" type="button">
+        <span class="btn-icon">▶</span>
+        Run Chatbot
+      </button>
+      <a href="/contacts" class="btn btn-secondary">
+        <span class="btn-icon">→</span>
+        Book a Strategy Call
+      </a>
     </div>
     <div class="stats-grid">
-      <article class="stat-card"><h3>120+</h3><p>Projects delivered</p></article>
-      <article class="stat-card"><h3>97%</h3><p>Client retention</p></article>
-      <article class="stat-card"><h3>1-3 wks</h3><p>Average launch cycle</p></article>
-      <article class="stat-card"><h3>24/7</h3><p>Automated lead capture</p></article>
+      <article class="stat-card reveal" data-reveal-delay="200ms">
+        <h3 class="counter" data-target="120">0</h3>
+        <p>Projects delivered</p>
+      </article>
+      <article class="stat-card reveal" data-reveal-delay="250ms">
+        <h3 class="counter" data-target="97">0</h3>
+        <p><span>Client retention</span></p>
+      </article>
+      <article class="stat-card reveal" data-reveal-delay="300ms">
+        <h3>1-3 <span class="stat-unit">wks</span></h3>
+        <p>Average launch cycle</p>
+      </article>
+      <article class="stat-card reveal" data-reveal-delay="350ms">
+        <h3 class="glow-text">24/7</h3>
+        <p>Automated lead capture</p>
+      </article>
     </div>
   </div>
 
-  <aside class="hero-panel">
+  <aside class="hero-panel reveal" data-reveal-delay="150ms">
     <h3 class="panel-title">Why teams choose ArroneX</h3>
     <div class="hero-grid">
       <article class="tile">
+        <div class="tile-icon">🎯</div>
         <h4>Growth-Centered UX</h4>
         <p>Structure, copy, and flows focused on qualified conversions.</p>
       </article>
       <article class="tile">
+        <div class="tile-icon">🤖</div>
         <h4>AI Sales Layer</h4>
         <p>Chatbot qualification, lead capture, and intent-driven handoff.</p>
       </article>
       <article class="tile">
+        <div class="tile-icon">⚙️</div>
         <h4>Operational Automation</h4>
         <p>Integrated notifications, CRM-ready records, and status tracking.</p>
       </article>
       <article class="tile">
+        <div class="tile-icon">⚡</div>
         <h4>Performance Engineering</h4>
         <p>Lightweight, maintainable architecture built for scale.</p>
       </article>
@@ -47,68 +69,927 @@
   </aside>
 </section>
 
-<section class="section-card panel section-gap">
+<section class="section-rail reveal" data-reveal-delay="180ms">
+  <a class="section-jump" href="#services">Services</a>
+  <a class="section-jump" href="#projects">Projects</a>
+  <a class="section-jump" href="#pricing">Pricing</a>
+  <a class="section-jump" href="#reviews">Reviews</a>
+  <a class="section-jump" href="#team">Team</a>
+  <a class="section-jump" href="#faq">FAQ</a>
+</section>
+
+<section
+  id="services"
+  class="section-card panel section-gap reveal"
+  data-reveal-delay="200ms"
+>
   <div class="section-head">
-    <h2>Core Services</h2>
+    <h2 class="gradient-text">Core Services</h2>
     <p>End-to-end delivery from planning to launch and optimization.</p>
   </div>
   <div class="services-grid">
-    <article class="service-card">
+    <article class="service-card reveal" data-reveal-delay="220ms">
+      <div class="service-icon">🌐</div>
       <h3>Business Websites</h3>
-      <p>High-conversion brand sites with fast load speed and clear messaging architecture.</p>
-      <span>From $499</span>
+      <p>
+        High-conversion brand sites with fast load speed and clear messaging
+        architecture.
+      </p>
+      <span class="price-tag">From $499</span>
     </article>
-    <article class="service-card">
+    <article class="service-card reveal" data-reveal-delay="240ms">
+      <div class="service-icon">🛍️</div>
       <h3>E-commerce Systems</h3>
-      <p>Storefront UX, catalog architecture, checkout optimization, and growth integrations.</p>
-      <span>From $899</span>
+      <p>
+        Storefront UX, catalog architecture, checkout optimization, and growth
+        integrations.
+      </p>
+      <span class="price-tag">From $899</span>
     </article>
-    <article class="service-card">
+    <article class="service-card reveal" data-reveal-delay="260ms">
+      <div class="service-icon">💬</div>
       <h3>AI Chatbot Integration</h3>
-      <p>Sales assistant flows, qualification logic, and persistent lead capture pipelines.</p>
-      <span>From $599</span>
+      <p>
+        Sales assistant flows, qualification logic, and persistent lead capture
+        pipelines.
+      </p>
+      <span class="price-tag">From $599</span>
     </article>
-    <article class="service-card">
+    <article class="service-card reveal" data-reveal-delay="280ms">
+      <div class="service-icon">🔄</div>
       <h3>Automation Pipelines</h3>
-      <p>Workflow orchestration across forms, notifications, CRMs, and internal tools.</p>
-      <span>Custom</span>
+      <p>
+        Workflow orchestration across forms, notifications, CRMs, and internal
+        tools.
+      </p>
+      <span class="price-tag badge-custom">Custom</span>
     </article>
-    <article class="service-card">
+    <article class="service-card reveal" data-reveal-delay="300ms">
+      <div class="service-icon">🎨</div>
       <h3>UI/UX Programs</h3>
-      <p>Interface systems, design audits, and conversion-focused journey improvements.</p>
-      <span>Custom</span>
+      <p>
+        Interface systems, design audits, and conversion-focused journey
+        improvements.
+      </p>
+      <span class="price-tag badge-custom">Custom</span>
     </article>
-    <article class="service-card">
+    <article class="service-card reveal" data-reveal-delay="320ms">
+      <div class="service-icon">📊</div>
       <h3>Analytics Foundations</h3>
-      <p>Event tracking, funnel monitoring, and KPI dashboards for better decisions.</p>
-      <span>Included</span>
+      <p>
+        Event tracking, funnel monitoring, and KPI dashboards for better
+        decisions.
+      </p>
+      <span class="price-tag badge-included">Included</span>
     </article>
   </div>
 </section>
 
+<!-- PORTFOLIO SHOWCASE -->
+<section
+  id="projects"
+  class="section-card panel section-gap reveal"
+  data-reveal-delay="250ms"
+>
+  <div class="section-head">
+    <h2 class="gradient-text">Featured Projects</h2>
+    <p>Real results from real clients. See what we build.</p>
+  </div>
+  <div class="portfolio-grid">
+    <article class="portfolio-card reveal" data-reveal-delay="270ms">
+      <div
+        class="portfolio-img"
+        style="background: linear-gradient(135deg, #33e8ff 0%, #5f8bff 100%)"
+      ></div>
+      <h3>E-commerce Scaling Platform</h3>
+      <p class="portfolio-meta">$ 45K Revenue in 90 days</p>
+      <p>
+        Complete storefront rebuild with conversion optimization and automated
+        email flows.
+      </p>
+      <div class="portfolio-tags">
+        <span>E-commerce</span>
+        <span>Design</span>
+        <span>Automation</span>
+      </div>
+    </article>
+    <article class="portfolio-card reveal" data-reveal-delay="290ms">
+      <div
+        class="portfolio-img"
+        style="background: linear-gradient(135deg, #7b4dff 0%, #33e8ff 100%)"
+      ></div>
+      <h3>SaaS Lead Generation</h3>
+      <p class="portfolio-meta">300+ Qualified Leads/Month</p>
+      <p>
+        AI chatbot integration with lead qualification and CRM automation
+        pipelines.
+      </p>
+      <div class="portfolio-tags">
+        <span>Chatbot</span>
+        <span>SaaS</span>
+        <span>Lead Gen</span>
+      </div>
+    </article>
+    <article class="portfolio-card reveal" data-reveal-delay="310ms">
+      <div
+        class="portfolio-img"
+        style="background: linear-gradient(135deg, #ffd36b 0%, #ff6b9d 100%)"
+      ></div>
+      <h3>Agency Rebrand & Redesign</h3>
+      <p class="portfolio-meta">2x Proposal Close Rate</p>
+      <p>
+        Full brand refresh with modern UI system, performance optimization, and
+        analytics.
+      </p>
+      <div class="portfolio-tags">
+        <span>Branding</span>
+        <span>Design</span>
+        <span>Analytics</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- GITHUB PROJECTS -->
+<section
+  class="section-card panel section-gap reveal"
+  data-reveal-delay="270ms"
+>
+  <div class="section-head">
+    <h2 class="gradient-text">Open Source & Development</h2>
+    <p>
+      Explore our GitHub projects and technical work. 10+ repositories of modern
+      web development.
+    </p>
+  </div>
+  <div class="github-showcase">
+    <div class="github-grid">
+      <a
+        href="https://github.com/Arrow-GG/Parash2021"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-card reveal"
+        data-reveal-delay="290ms"
+      >
+        <div class="github-card-head">
+          <h3>Parash2021</h3>
+          <span class="lang-badge">Config</span>
+        </div>
+        <p>GitHub profile configuration files and setup.</p>
+        <div class="github-meta">
+          <span>📍 Config Files</span>
+          <span>→ View</span>
+        </div>
+      </a>
+
+      <a
+        href="https://github.com/Arrow-GG/Resqueplate"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-card reveal"
+        data-reveal-delay="310ms"
+      >
+        <div class="github-card-head">
+          <h3>Resqueplate</h3>
+          <span class="lang-badge html">HTML</span>
+        </div>
+        <p>Professional HTML template structure and best practices.</p>
+        <div class="github-meta">
+          <span>🎨 HTML</span>
+          <span>→ View</span>
+        </div>
+      </a>
+
+      <a
+        href="https://github.com/Arrow-GG/Project"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-card reveal"
+        data-reveal-delay="330ms"
+      >
+        <div class="github-card-head">
+          <h3>Project</h3>
+          <span class="lang-badge html">HTML</span>
+        </div>
+        <p>Main project repository showcasing web development skills.</p>
+        <div class="github-meta">
+          <span>🎨 HTML</span>
+          <span>→ View</span>
+        </div>
+      </a>
+
+      <a
+        href="https://github.com/Arrow-GG/PRODIGY_WD_01"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-card reveal"
+        data-reveal-delay="350ms"
+      >
+        <div class="github-card-head">
+          <h3>PRODIGY_WD_01</h3>
+          <span class="lang-badge css">CSS</span>
+        </div>
+        <p>Advanced CSS styling and responsive design techniques.</p>
+        <div class="github-meta">
+          <span>🎨 CSS</span>
+          <span>→ View</span>
+        </div>
+      </a>
+
+      <a
+        href="https://github.com/Arrow-GG/PRODIGY_WD_02"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-card reveal"
+        data-reveal-delay="370ms"
+      >
+        <div class="github-card-head">
+          <h3>PRODIGY_WD_02</h3>
+          <span class="lang-badge js">JavaScript</span>
+        </div>
+        <p>Interactive JavaScript features and dynamic web applications.</p>
+        <div class="github-meta">
+          <span>⚡ JavaScript</span>
+          <span>→ View</span>
+        </div>
+      </a>
+
+      <a
+        href="https://github.com/Arrow-GG/PRODIGY_WD_03"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-card reveal"
+        data-reveal-delay="390ms"
+      >
+        <div class="github-card-head">
+          <h3>PRODIGY_WD_03</h3>
+          <span class="lang-badge css">CSS</span>
+        </div>
+        <p>Creative CSS animations and advanced styling patterns.</p>
+        <div class="github-meta">
+          <span>🎨 CSS</span>
+          <span>→ View</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="github-cta">
+      <p>Explore all 10+ repositories and contributions</p>
+      <a
+        href="https://github.com/Arrow-GG"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-secondary"
+      >
+        <span class="btn-icon">🔗</span>
+        View Full GitHub Profile
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING SECTION -->
+<section
+  id="pricing"
+  class="section-card panel section-gap reveal"
+  data-reveal-delay="300ms"
+>
+  <div class="section-head">
+    <h2 class="gradient-text">Transparent Pricing</h2>
+    <p>Clear pricing for every project type. No surprises.</p>
+  </div>
+  <div class="pricing-overview">
+    <article class="pricing-overview-card reveal" data-reveal-delay="310ms">
+      <p class="pricing-label">Best For</p>
+      <h3>Founders, local brands, agencies, and lean product teams.</h3>
+      <p>
+        We scope fast, keep delivery tight, and map every package to a real
+        growth goal instead of vague design hours.
+      </p>
+    </article>
+    <article class="pricing-overview-card reveal" data-reveal-delay="330ms">
+      <p class="pricing-label">Included By Default</p>
+      <ul class="pricing-mini-list">
+        <li>Responsive UI build</li>
+        <li>Performance cleanup</li>
+        <li>Launch support and QA</li>
+        <li>Basic analytics foundation</li>
+      </ul>
+    </article>
+    <article class="pricing-overview-card reveal" data-reveal-delay="350ms">
+      <p class="pricing-label">Typical Timeline</p>
+      <div class="pricing-timeline-mini">
+        <span>Starter: 2-3 weeks</span>
+        <span>Growth: 4-6 weeks</span>
+        <span>Enterprise: scoped roadmap</span>
+      </div>
+    </article>
+  </div>
+
+  <!-- PRICING TABS -->
+  <div class="pricing-tabs">
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="packages">
+        <span class="tab-icon">📦</span>
+        Service Packages
+      </button>
+      <button class="tab-btn" data-tab="features">
+        <span class="tab-icon">✨</span>
+        Features Comparison
+      </button>
+      <button class="tab-btn" data-tab="faq">
+        <span class="tab-icon">❓</span>
+        Pricing FAQs
+      </button>
+    </div>
+
+    <!-- PACKAGES TAB -->
+    <div class="tab-content active" id="tab-packages">
+      <div class="pricing-layout">
+        <div class="price-grid">
+          <div class="price-card basic-plan reveal" data-reveal-delay="320ms">
+            <div class="price-header">
+              <h3>Starter</h3>
+              <p class="price-range">$499 - $999</p>
+            </div>
+            <ul class="price-list">
+              <li>✓ Single Page Site or Landing</li>
+              <li>✓ Mobile Responsive Design</li>
+              <li>✓ Basic Contact Form</li>
+              <li>✓ SEO Optimization</li>
+              <li>✓ 2 Weeks Support</li>
+            </ul>
+            <a class="btn btn-secondary btn-block" href="/contacts?plan=starter">
+              Get Started
+            </a>
+          </div>
+
+          <div
+            class="price-card featured-plan reveal"
+            data-reveal-delay="340ms"
+          >
+            <div class="popular-badge">POPULAR</div>
+            <div class="price-header">
+              <h3>Growth</h3>
+              <p class="price-range">$1,999 - $4,999</p>
+            </div>
+            <ul class="price-list">
+              <li>✓ Multi-Page Website</li>
+              <li>✓ AI Chatbot Integration</li>
+              <li>✓ Lead Capture Pipeline</li>
+              <li>✓ Email Automation Flows</li>
+              <li>✓ Analytics Dashboard</li>
+              <li>✓ 30 Days Support</li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="/contacts?plan=growth">
+              Start Now
+            </a>
+          </div>
+
+          <div
+            class="price-card enterprise-plan reveal"
+            data-reveal-delay="360ms"
+          >
+            <div class="price-header">
+              <h3>Enterprise</h3>
+              <p class="price-range">Custom Quote</p>
+            </div>
+            <ul class="price-list">
+              <li>✓ Full E-commerce Platform</li>
+              <li>✓ Advanced Automation</li>
+              <li>✓ CRM Integration</li>
+              <li>✓ Custom Integrations</li>
+              <li>✓ Dedicated Account Manager</li>
+              <li>✓ Ongoing Optimization</li>
+            </ul>
+            <a class="btn btn-secondary btn-block" href="/contacts?plan=enterprise">
+              Contact Sales
+            </a>
+          </div>
+        </div>
+        <aside class="pricing-sidecard reveal" data-reveal-delay="380ms">
+          <p class="pricing-label">Scope Snapshot</p>
+          <h3>Choose the package by business stage, not just page count.</h3>
+          <div class="pricing-side-list">
+            <div>
+              <strong>Starter</strong>
+              <span>For launches, one-off campaigns, and credibility pages.</span>
+            </div>
+            <div>
+              <strong>Growth</strong>
+              <span>For active sales teams that need leads, automations, and reporting.</span>
+            </div>
+            <div>
+              <strong>Enterprise</strong>
+              <span>For custom systems, multi-step funnels, and integration-heavy builds.</span>
+            </div>
+          </div>
+          <div class="pricing-note-box">
+            Every quote includes deliverables, timeline, revision rounds, and
+            post-launch support before work begins.
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- FEATURES TAB - FLASHCARDS -->
+    <div class="tab-content" id="tab-features">
+      <div class="flashcards-grid">
+        <div class="flashcard reveal" data-reveal-delay="320ms">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="flashcard-icon">🌐</div>
+              <h4>Website Design</h4>
+              <p>Click to learn</p>
+            </div>
+            <div class="flashcard-back">
+              <p>
+                Professional, responsive web design with modern UI/UX
+                principles. Mobile-first approach ensures perfect display on all
+                devices.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard reveal" data-reveal-delay="340ms">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="flashcard-icon">🤖</div>
+              <h4>AI Chatbots</h4>
+              <p>Click to learn</p>
+            </div>
+            <div class="flashcard-back">
+              <p>
+                Intelligent chatbot systems for 24/7 customer support and lead
+                qualification. Integrates with your CRM and automation tools.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard reveal" data-reveal-delay="360ms">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="flashcard-icon">📊</div>
+              <h4>Analytics</h4>
+              <p>Click to learn</p>
+            </div>
+            <div class="flashcard-back">
+              <p>
+                Real-time analytics dashboards tracking user behavior,
+                conversions, and KPIs. Data-driven insights for optimization.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard reveal" data-reveal-delay="380ms">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="flashcard-icon">⚙️</div>
+              <h4>Automation</h4>
+              <p>Click to learn</p>
+            </div>
+            <div class="flashcard-back">
+              <p>
+                Workflow automation connecting your tools. Email sequences, form
+                submissions, CRM updates, and notifications.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard reveal" data-reveal-delay="400ms">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="flashcard-icon">🛒</div>
+              <h4>E-commerce</h4>
+              <p>Click to learn</p>
+            </div>
+            <div class="flashcard-back">
+              <p>
+                Full e-commerce solutions with shopping carts, payment
+                processing, inventory management, and order tracking.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard reveal" data-reveal-delay="420ms">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="flashcard-icon">🔒</div>
+              <h4>Security</h4>
+              <p>Click to learn</p>
+            </div>
+            <div class="flashcard-back">
+              <p>
+                Enterprise-grade security with SSL certificates, data
+                encryption, secure auth, and compliance standards.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ TAB -->
+    <div class="tab-content" id="tab-faq">
+      <div class="faq-pricing">
+        <article class="faq-item reveal" data-reveal-delay="320ms">
+          <h4>💳 Can I pay in installments?</h4>
+          <p>
+            Yes! Most enterprise projects can be split into milestones with
+            staged payments based on deliverables.
+          </p>
+        </article>
+
+        <article class="faq-item reveal" data-reveal-delay="340ms">
+          <h4>🔄 What if I need changes after launch?</h4>
+          <p>
+            All projects include 30 days of free support. Beyond that, we offer
+            ongoing maintenance retainers.
+          </p>
+        </article>
+
+        <article class="faq-item reveal" data-reveal-delay="360ms">
+          <h4>⏰ How long does development take?</h4>
+          <p>
+            Starter: 2-3 weeks | Growth: 4-6 weeks | Enterprise: Custom timeline
+            based on scope.
+          </p>
+        </article>
+
+        <article class="faq-item reveal" data-reveal-delay="380ms">
+          <h4>📈 Is the price fixed?</h4>
+          <p>
+            Base packages are fixed. Additional features, custom integrations,
+            or complex requirements are quoted separately.
+          </p>
+        </article>
+
+        <article class="faq-item reveal" data-reveal-delay="400ms">
+          <h4>🎯 Do you offer discounts for multiple projects?</h4>
+          <p>
+            Yes! We provide volume discounts for agencies and companies with
+            ongoing project needs.
+          </p>
+        </article>
+
+        <article class="faq-item reveal" data-reveal-delay="420ms">
+          <h4>🌍 Do you handle international projects?</h4>
+          <p>
+            Absolutely! We work globally across timezones with clients
+            worldwide.
+          </p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section
+  id="reviews"
+  class="section-card panel section-gap reveal"
+  data-reveal-delay="320ms"
+>
+  <div class="section-head">
+    <h2 class="gradient-text">Client Love</h2>
+    <p>What teams are saying about their projects with ArroneX.</p>
+  </div>
+  <div class="reviews-overview">
+    <article class="reviews-summary-card reveal" data-reveal-delay="330ms">
+      <p class="pricing-label">Client Outcomes</p>
+      <div class="reviews-metrics">
+        <div>
+          <strong>97%</strong>
+          <span>retention rate</span>
+        </div>
+        <div>
+          <strong>1-3 wks</strong>
+          <span>typical launch cycle</span>
+        </div>
+        <div>
+          <strong>24/7</strong>
+          <span>lead capture coverage</span>
+        </div>
+      </div>
+    </article>
+    <article class="reviews-spotlight reveal" data-reveal-delay="350ms">
+      <p class="pricing-label">Why They Stay</p>
+      <h3>Teams come back for fast execution, clear communication, and builds that convert.</h3>
+      <p>
+        Most repeat work starts after the first launch, when clients want to
+        add automation, funnels, or a stronger analytics layer.
+      </p>
+    </article>
+  </div>
+  <div class="client-reviews-grid">
+    <article class="review-card reveal" data-reveal-delay="340ms">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "ArroneX completely transformed our online presence. The chatbot
+        integration alone has tripled our lead conversion rate."
+      </p>
+      <div class="review-footer">
+        <div class="review-avatar">JM</div>
+        <div class="review-info">
+          <p class="review-name">Jessica Martinez</p>
+          <p class="review-title">CEO & Founder</p>
+          <p class="review-company">Tech Solutions Co</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="review-card reveal" data-reveal-delay="360ms">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "Fast delivery, excellent communication, and they actually understand
+        conversion optimization. Highly recommend!"
+      </p>
+      <div class="review-footer">
+        <div class="review-avatar">MK</div>
+        <div class="review-info">
+          <p class="review-name">Michael Kim</p>
+          <p class="review-title">Founder & Director</p>
+          <p class="review-company">Digital Marketing Agency</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="review-card reveal" data-reveal-delay="380ms">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "The team delivered our e-commerce platform in 3 weeks. First month we
+        did $45K in sales. Game changer for our business."
+      </p>
+      <div class="review-footer">
+        <div class="review-avatar">AP</div>
+        <div class="review-info">
+          <p class="review-name">Amanda Patel</p>
+          <p class="review-title">Owner</p>
+          <p class="review-company">Fashion Retail Brand</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="review-card reveal" data-reveal-delay="400ms">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "We went from struggling with outdated tech to having a modern, scalable
+        platform. The results speak for themselves. 10/10!"
+      </p>
+      <div class="review-footer">
+        <div class="review-avatar">RD</div>
+        <div class="review-info">
+          <p class="review-name">Robert Davis</p>
+          <p class="review-title">Operations Manager</p>
+          <p class="review-company">Manufacturing Corp</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="review-card reveal" data-reveal-delay="420ms">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "The automation setup saved us 20+ hours per week. Best investment we've
+        made. ArroneX knows what they're doing!"
+      </p>
+      <div class="review-footer">
+        <div class="review-avatar">SK</div>
+        <div class="review-info">
+          <p class="review-name">Sarah Khan</p>
+          <p class="review-title">Business Manager</p>
+          <p class="review-company">EdTech Startup</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="review-card reveal" data-reveal-delay="440ms">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "Professional team, amazing results, and they stood by us through
+        iterations. This is how web dev should be done."
+      </p>
+      <div class="review-footer">
+        <div class="review-avatar">EL</div>
+        <div class="review-info">
+          <p class="review-name">Emma Lopez</p>
+          <p class="review-title">Product Lead</p>
+          <p class="review-company">Healthcare Platform</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- TRIAL PROJECTS & CASE STUDIES -->
+<section
+  class="section-card panel section-gap reveal"
+  data-reveal-delay="360ms"
+>
+  <div class="section-head">
+    <h2 class="gradient-text">Try Our Demo Projects</h2>
+    <p>
+      Interactive examples showing real capabilities. Explore live
+      demonstrations of our work.
+    </p>
+  </div>
+  <div class="trial-projects-grid">
+    <div class="trial-card reveal" data-reveal-delay="380ms">
+      <div class="trial-card-header">
+        <span class="trial-badge">Live Demo</span>
+        <h3>Landing Page Builder</h3>
+        <p class="trial-category">Web Design</p>
+      </div>
+      <div class="trial-card-body">
+        <p class="trial-description">
+          High-conversion landing page with animations, form optimization, and
+          mobile responsiveness.
+        </p>
+        <div class="trial-stats">
+          <div class="trial-stat">
+            <span class="trial-stat-value">98%</span>
+            <span class="trial-stat-label">Mobile Score</span>
+          </div>
+          <div class="trial-stat">
+            <span class="trial-stat-value">32%</span>
+            <span class="trial-stat-label">Conv. Rate</span>
+          </div>
+        </div>
+        <div class="trial-tags">
+          <span class="trial-tag">Responsive</span>
+          <span class="trial-tag">Fast</span>
+          <span class="trial-tag">SEO Ready</span>
+        </div>
+      </div>
+      <div class="trial-card-footer">
+        <a href="/info" class="trial-btn-primary">View Demo</a>
+        <a href="https://github.com/Arrow-GG" class="trial-btn-secondary" target="_blank" rel="noopener noreferrer">Source</a>
+      </div>
+    </div>
+
+    <div class="trial-card reveal" data-reveal-delay="400ms">
+      <div class="trial-card-header">
+        <span class="trial-badge">Live Demo</span>
+        <h3>AI Chatbot Showcase</h3>
+        <p class="trial-category">AI Integration</p>
+      </div>
+      <div class="trial-card-body">
+        <p class="trial-description">
+          Interactive chatbot with real-time responses, lead qualification, and
+          CRM integration features.
+        </p>
+        <div class="trial-stats">
+          <div class="trial-stat">
+            <span class="trial-stat-value">24/7</span>
+            <span class="trial-stat-label">Available</span>
+          </div>
+          <div class="trial-stat">
+            <span class="trial-stat-value">89%</span>
+            <span class="trial-stat-label">Accuracy</span>
+          </div>
+        </div>
+        <div class="trial-tags">
+          <span class="trial-tag">AI Powered</span>
+          <span class="trial-tag">Smart</span>
+          <span class="trial-tag">Auto-Learn</span>
+        </div>
+      </div>
+      <div class="trial-card-footer">
+        <button id="trialChatLaunch" class="trial-btn-primary" type="button">Try Now</button>
+        <a href="/chatbot" class="trial-btn-secondary">Details</a>
+      </div>
+    </div>
+
+    <div class="trial-card reveal" data-reveal-delay="420ms">
+      <div class="trial-card-header">
+        <span class="trial-badge">Live Demo</span>
+        <h3>E-Commerce Platform</h3>
+        <p class="trial-category">Shopping & Payments</p>
+      </div>
+      <div class="trial-card-body">
+        <p class="trial-description">
+          Full e-commerce solution with shopping cart, payments, inventory
+          tracking, and order management.
+        </p>
+        <div class="trial-stats">
+          <div class="trial-stat">
+            <span class="trial-stat-value">400+</span>
+            <span class="trial-stat-label">Products</span>
+          </div>
+          <div class="trial-stat">
+            <span class="trial-stat-value">$2.5K</span>
+            <span class="trial-stat-label">Sales/Day</span>
+          </div>
+        </div>
+        <div class="trial-tags">
+          <span class="trial-tag">Stripe Ready</span>
+          <span class="trial-tag">Secure</span>
+          <span class="trial-tag">Scalable</span>
+        </div>
+      </div>
+      <div class="trial-card-footer">
+        <a href="/info" class="trial-btn-primary">Explore</a>
+        <a href="/contacts" class="trial-btn-secondary">Learn More</a>
+      </div>
+    </div>
+
+    <div class="trial-card reveal" data-reveal-delay="440ms">
+      <div class="trial-card-header">
+        <span class="trial-badge">Live Demo</span>
+        <h3>Analytics Dashboard</h3>
+        <p class="trial-category">Data & Insights</p>
+      </div>
+      <div class="trial-card-body">
+        <p class="trial-description">
+          Real-time analytics dashboard with user tracking, funnel analysis, and
+          conversion monitoring.
+        </p>
+        <div class="trial-stats">
+          <div class="trial-stat">
+            <span class="trial-stat-value">12+</span>
+            <span class="trial-stat-label">Metrics</span>
+          </div>
+          <div class="trial-stat">
+            <span class="trial-stat-value">100K+</span>
+            <span class="trial-stat-label">Events/Mo</span>
+          </div>
+        </div>
+        <div class="trial-tags">
+          <span class="trial-tag">Real-Time</span>
+          <span class="trial-tag">Visual</span>
+          <span class="trial-tag">Exportable</span>
+        </div>
+      </div>
+      <div class="trial-card-footer">
+        <a href="/info" class="trial-btn-primary">View Demo</a>
+        <a href="/info" class="trial-btn-secondary">API Docs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="content-grid section-gap">
-  <article class="section-card panel">
+  <article class="section-card panel reveal" data-reveal-delay="340ms">
     <div class="section-head">
-      <h2>Execution Framework</h2>
+      <h2 class="gradient-text">Execution Framework</h2>
       <p>Built for speed without losing quality.</p>
     </div>
     <ol class="timeline">
-      <li><strong>Discovery & Scope</strong><span>Business goals, audience, and KPI alignment.</span></li>
-      <li><strong>Design & UX Wireflows</strong><span>High-intent journeys and component systems.</span></li>
-      <li><strong>Build & Integrate</strong><span>Production implementation with chatbot and DB hooks.</span></li>
-      <li><strong>Launch & Optimize</strong><span>Monitoring, iteration, and conversion tuning.</span></li>
+      <li class="timeline-item reveal" data-reveal-delay="360ms">
+        <div class="timeline-marker">1</div>
+        <div>
+          <strong>Discovery & Scope</strong>
+          <span>Business goals, audience, and KPI alignment. (3-5 days)</span>
+        </div>
+      </li>
+      <li class="timeline-item reveal" data-reveal-delay="380ms">
+        <div class="timeline-marker">2</div>
+        <div>
+          <strong>Design & UX Wireflows</strong>
+          <span>High-intent journeys and component systems. (5-7 days)</span>
+        </div>
+      </li>
+      <li class="timeline-item reveal" data-reveal-delay="400ms">
+        <div class="timeline-marker">3</div>
+        <div>
+          <strong>Build & Integrate</strong>
+          <span
+            >Production implementation with chatbot and DB hooks. (7-10
+            days)</span
+          >
+        </div>
+      </li>
+      <li class="timeline-item reveal" data-reveal-delay="420ms">
+        <div class="timeline-marker">4</div>
+        <div>
+          <strong>Launch & Optimize</strong>
+          <span>Monitoring, iteration, and conversion tuning. (Ongoing)</span>
+        </div>
+      </li>
     </ol>
   </article>
 
-  <article class="section-card panel">
+  <article class="section-card panel reveal" data-reveal-delay="360ms">
     <div class="section-head">
-      <h2>Tech Stack</h2>
+      <h2 class="gradient-text">Tech Stack</h2>
       <p>Flexible stack depending on business fit.</p>
     </div>
     <div class="chips">
-      <span>Flask</span><span>Python</span><span>SQLite</span><span>JavaScript</span>
-      <span>Shopify</span><span>WooCommerce</span><span>Firebase</span><span>REST APIs</span>
-      <span>Automation Bots</span><span>Analytics</span>
+      <span class="chip-tech">Flask</span><span class="chip-tech">Python</span
+      ><span class="chip-tech">SQLite</span>
+      <span class="chip-tech">JavaScript</span
+      ><span class="chip-tech">Shopify</span
+      ><span class="chip-tech">WooCommerce</span>
+      <span class="chip-tech">Firebase</span
+      ><span class="chip-tech">REST APIs</span
+      ><span class="chip-tech">Automation</span>
+      <span class="chip-tech">Analytics</span
+      ><span class="chip-tech">Stripe</span
+      ><span class="chip-tech">Zapier</span>
     </div>
     <div class="cta-row">
       <a href="/info" class="btn btn-secondary">View Pricing Details</a>
@@ -116,37 +997,251 @@
   </article>
 </section>
 
-<section class="section-card panel section-gap">
+<!-- TEAM SECTION -->
+<section
+  id="team"
+  class="section-card panel section-gap reveal"
+  data-reveal-delay="380ms"
+>
   <div class="section-head">
-    <h2>Frequently Asked Questions</h2>
+    <h2 class="gradient-text">Our Team</h2>
+    <p>Specialists across strategy, engineering, design, and automation.</p>
+  </div>
+  <div class="team-intro-grid">
+    <article class="team-intro-card reveal" data-reveal-delay="390ms">
+      <p class="pricing-label">How We Work</p>
+      <h3>Small senior team, direct communication, fast handoff-free delivery.</h3>
+      <p>
+        You work with the people shaping the product, writing the code, and
+        refining the launch plan, so feedback loops stay short.
+      </p>
+    </article>
+    <article class="team-intro-card reveal" data-reveal-delay="410ms">
+      <p class="pricing-label">What We Bring</p>
+      <div class="team-capability-list">
+        <span>Product strategy</span>
+        <span>Full-stack builds</span>
+        <span>UI systems</span>
+        <span>Automation flows</span>
+        <span>Analytics setup</span>
+        <span>Launch support</span>
+      </div>
+    </article>
+  </div>
+  <div class="team-grid">
+    <article class="team-card reveal" data-reveal-delay="400ms">
+      <div class="team-avatar">
+        <div
+          class="avatar-gradient"
+          style="background: linear-gradient(135deg, #33e8ff 0%, #5f8bff 100%)"
+        ></div>
+      </div>
+      <h3>Strategic Lead</h3>
+      <p class="team-role">Product & Growth</p>
+      <p class="team-bio">
+        12+ years in product strategy, SaaS scaling, and conversion
+        optimization.
+      </p>
+      <div class="team-skills">
+        <span>Strategy</span>
+        <span>Product</span>
+        <span>Growth</span>
+      </div>
+    </article>
+
+    <article class="team-card reveal" data-reveal-delay="420ms">
+      <div class="team-avatar">
+        <div
+          class="avatar-gradient"
+          style="background: linear-gradient(135deg, #7b4dff 0%, #33e8ff 100%)"
+        ></div>
+      </div>
+      <h3>Engineering Lead</h3>
+      <p class="team-role">Full Stack Development</p>
+      <p class="team-bio">
+        15+ years building scalable platforms, cloud infrastructure, and
+        real-time systems.
+      </p>
+      <div class="team-skills">
+        <span>Backend</span>
+        <span>Frontend</span>
+        <span>DevOps</span>
+      </div>
+    </article>
+
+    <article class="team-card reveal" data-reveal-delay="440ms">
+      <div class="team-avatar">
+        <div
+          class="avatar-gradient"
+          style="background: linear-gradient(135deg, #ffd36b 0%, #ff6b9d 100%)"
+        ></div>
+      </div>
+      <h3>Design & UX Lead</h3>
+      <p class="team-role">Product Design & Strategy</p>
+      <p class="team-bio">
+        10+ years in design systems, user research, and conversion-focused
+        interfaces.
+      </p>
+      <div class="team-skills">
+        <span>UI/UX</span>
+        <span>Design Systems</span>
+        <span>Research</span>
+      </div>
+    </article>
+
+    <article class="team-card reveal" data-reveal-delay="460ms">
+      <div class="team-avatar">
+        <div
+          class="avatar-gradient"
+          style="background: linear-gradient(135deg, #5fe1a8 0%, #33e8ff 100%)"
+        ></div>
+      </div>
+      <h3>Automation Lead</h3>
+      <p class="team-role">Ops & Integrations</p>
+      <p class="team-bio">
+        Builds handoff systems across forms, CRM pipelines, alerts, and AI
+        workflows so leads never sit idle.
+      </p>
+      <div class="team-skills">
+        <span>Automation</span>
+        <span>Integrations</span>
+        <span>CRM</span>
+      </div>
+    </article>
+  </div>
+  <div class="team-footer-band reveal" data-reveal-delay="480ms">
+    <div>
+      <strong>Weekly working rhythm</strong>
+      <span>Scope alignment, design review, build checkpoint, launch readiness.</span>
+    </div>
+    <div>
+      <strong>Client communication</strong>
+      <span>Clear updates, async-friendly feedback, and milestone-based approvals.</span>
+    </div>
+  </div>
+</section>
+
+<section
+  id="faq"
+  class="section-card panel section-gap reveal"
+  data-reveal-delay="420ms"
+>
+  <div class="section-head">
+    <h2 class="gradient-text">Frequently Asked Questions</h2>
     <p>Quick answers before you start.</p>
   </div>
   <div class="faq-grid">
-    <article class="faq-item">
+    <article class="faq-item reveal" data-reveal-delay="440ms">
+      <div class="faq-icon">⏱️</div>
       <h4>How fast can a project start?</h4>
-      <p>Most projects begin within 2-4 business days after requirement alignment.</p>
+      <p>
+        Most projects begin within 2-4 business days after requirement
+        alignment. We move fast.
+      </p>
     </article>
-    <article class="faq-item">
+    <article class="faq-item reveal" data-reveal-delay="460ms">
+      <div class="faq-icon">🔌</div>
       <h4>Can ArroneX handle existing systems?</h4>
-      <p>Yes. We can upgrade, redesign, or integrate with your current stack.</p>
+      <p>
+        Yes. We can upgrade, redesign, or integrate with your current stack
+        seamlessly.
+      </p>
     </article>
-    <article class="faq-item">
+    <article class="faq-item reveal" data-reveal-delay="480ms">
+      <div class="faq-icon">🛠️</div>
       <h4>Do you provide maintenance?</h4>
-      <p>Yes. We offer stabilization plus ongoing optimization retainers.</p>
+      <p>
+        Yes. We offer stabilization plus ongoing optimization retainers to keep
+        things running smoothly.
+      </p>
     </article>
-    <article class="faq-item">
+    <article class="faq-item reveal" data-reveal-delay="500ms">
+      <div class="faq-icon">🤝</div>
       <h4>Can chatbot leads go to CRM?</h4>
-      <p>Yes. We can route leads from database to your CRM workflows.</p>
+      <p>
+        Yes. We can route leads from database to your CRM workflows
+        automatically.
+      </p>
+    </article>
+    <article class="faq-item reveal" data-reveal-delay="520ms">
+      <div class="faq-icon">💰</div>
+      <h4>What's included in the pricing?</h4>
+      <p>
+        Design, development, testing, deployment, and initial launch support are
+        all included.
+      </p>
+    </article>
+    <article class="faq-item reveal" data-reveal-delay="540ms">
+      <div class="faq-icon">📱</div>
+      <h4>Is everything mobile-optimized?</h4>
+      <p>
+        Absolutely. All our projects are built mobile-first and tested across
+        all devices.
+      </p>
     </article>
   </div>
 </section>
 
-<section class="section-card panel section-gap cta-band">
-  <h2>Ready to scale with ArroneX?</h2>
-  <p>Start with a focused strategy call or try the live chatbot to model your sales flow.</p>
-  <div class="cta-row">
-    <button class="btn btn-primary js-open-chat" type="button">Launch Assistant</button>
-    <a class="btn btn-secondary" href="/contacts">Contact Team</a>
+<!-- FINAL CTA SECTION -->
+<section
+  class="section-card panel section-gap cta-band reveal"
+  data-reveal-delay="480ms"
+>
+  <div class="cta-content">
+    <h2 class="gradient-text">Ready to Scale with ArroneX?</h2>
+    <p>
+      Start with a focused strategy call or try the live chatbot to model your
+      sales flow.
+    </p>
+    <div class="cta-row">
+      <button class="btn btn-primary js-open-chat" type="button">
+        <span class="btn-icon">💬</span>
+        Launch Assistant
+      </button>
+      <a class="btn btn-secondary" href="/contacts">
+        <span class="btn-icon">📞</span>
+        Contact Team
+      </a>
+    </div>
   </div>
+  <div class="cta-decoration"></div>
 </section>
+
+<!-- TRUST BADGES -->
+<section class="trust-band reveal" data-reveal-delay="500ms">
+  <p>
+    Trusted by 120+ businesses • 97% client retention • 1-3 week launch cycle
+  </p>
+</section>
+
+<footer class="site-footer reveal" data-reveal-delay="520ms">
+  <div class="footer-grid">
+    <div>
+      <p class="footer-label">ArroneX</p>
+      <h3>Web systems, AI assistants, and growth-focused delivery.</h3>
+      <p class="footer-copy">
+        Built for brands that want a sharper digital presence and a faster path
+        from visitor to qualified lead.
+      </p>
+    </div>
+    <div>
+      <p class="footer-label">Explore</p>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#reviews">Reviews</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-label">Next Step</p>
+      <div class="footer-links">
+        <a href="#team">Meet the Team</a>
+        <a href="#faq">Read FAQs</a>
+        <a href="/contacts">Book a Call</a>
+        <a href="/chatbot">Open Chatbot</a>
+      </div>
+    </div>
+  </div>
+</footer>
 {% endblock %}

@@ -3,37 +3,160 @@
 {% block title %}About | ArroneX{% endblock %}
 
 {% block content %}
-<section class="section-card panel">
-  <h1 class="page-title">About ArroneX</h1>
-  <p class="lead">
-    ArroneX is a product-driven digital agency focused on modern web engineering, AI chatbot implementation,
-    and scalable automation. We combine design precision with practical delivery.
-  </p>
-</section>
-
-<section class="content-grid" style="margin-top:16px">
-  <article class="section-card panel">
-    <h3 style="margin-top:0">How we work</h3>
-    <ul class="list-clean">
-      <li>Discovery sprint to map business goals, audience, and measurable KPIs.</li>
-      <li>Rapid UI prototyping with conversion-first information architecture.</li>
-      <li>Production engineering with maintainable, testable code.</li>
-      <li>Post-launch optimization using behavioral and funnel data.</li>
-    </ul>
-  </article>
-
-  <article class="section-card panel">
-    <h3 style="margin-top:0">Core services</h3>
-    <ul class="list-clean">
-      <li>Business website design and development</li>
-      <li>E-commerce implementation and optimization</li>
-      <li>AI chatbot sales and support assistants</li>
-      <li>Workflow automation and systems integration</li>
-      <li>UI/UX design systems and design audits</li>
-    </ul>
+<section class="section-card panel page-hero reveal" data-reveal-delay="80ms">
+  <div class="page-hero-copy">
+    <p class="kicker">ABOUT ARRONEX</p>
+    <h1 class="page-title">A compact digital studio built for faster launches and sharper systems.</h1>
+    <p class="lead">
+      ArroneX combines conversion-focused design, practical engineering, and
+      AI-enabled automation to help businesses move from scattered ideas to a
+      clean, measurable online platform.
+    </p>
     <div class="cta-row">
       <a class="btn btn-primary" href="/contacts">Start a Project</a>
+      <button class="btn btn-secondary js-open-chat" type="button">Ask the Assistant</button>
+    </div>
+  </div>
+  <aside class="page-hero-side">
+    <div class="mini-metrics">
+      <article class="mini-metric reveal" data-reveal-delay="120ms">
+        <strong>120+</strong>
+        <span>projects shipped</span>
+      </article>
+      <article class="mini-metric reveal" data-reveal-delay="160ms">
+        <strong>97%</strong>
+        <span>client retention</span>
+      </article>
+      <article class="mini-metric reveal" data-reveal-delay="200ms">
+        <strong>1-3 wks</strong>
+        <span>average launch cycle</span>
+      </article>
+      <article class="mini-metric reveal" data-reveal-delay="240ms">
+        <strong>24/7</strong>
+        <span>lead capture readiness</span>
+      </article>
+    </div>
+  </aside>
+</section>
+
+<section class="section-rail reveal" data-reveal-delay="130ms">
+  <a class="section-jump" href="#story">Story</a>
+  <a class="section-jump" href="#principles">Principles</a>
+  <a class="section-jump" href="#services">Services</a>
+  <a class="section-jump" href="#process">Process</a>
+</section>
+
+<section id="story" class="content-grid section-gap">
+  <article class="section-card panel reveal" data-reveal-delay="160ms">
+    <div class="section-head">
+      <h2 class="gradient-text">What We Actually Do</h2>
+      <p>We build business-ready systems, not just pretty pages.</p>
+    </div>
+    <p class="lead compact-lead">
+      Most clients come to us when their website looks acceptable but fails at
+      conversion, speed, messaging, or follow-up. We step in to redesign the
+      journey, tighten the technical foundation, and connect the experience to
+      real lead flow.
+    </p>
+    <div class="highlight-strip">
+      <span>Websites with clear messaging</span>
+      <span>AI chatbot qualification</span>
+      <span>CRM and notification automation</span>
     </div>
   </article>
+
+  <article class="section-card panel reveal" data-reveal-delay="200ms">
+    <div class="section-head">
+      <h2 class="gradient-text">Who We Build For</h2>
+      <p>Lean teams that want momentum without a bloated agency process.</p>
+    </div>
+    <div class="tag-cloud">
+      <span>Founders</span>
+      <span>Agencies</span>
+      <span>Service businesses</span>
+      <span>SaaS teams</span>
+      <span>E-commerce brands</span>
+      <span>Operators</span>
+    </div>
+  </article>
+</section>
+
+<section id="principles" class="section-card panel section-gap reveal" data-reveal-delay="220ms">
+  <div class="section-head">
+    <h2 class="gradient-text">Operating Principles</h2>
+    <p>The standards that shape every project and client interaction.</p>
+  </div>
+  <div class="insight-grid">
+    <article class="insight-card reveal" data-reveal-delay="240ms">
+      <h3>Clarity before complexity</h3>
+      <p>We simplify the offer, user journey, and handoff path before adding new layers of tech.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="260ms">
+      <h3>Conversion as a design rule</h3>
+      <p>Messaging, structure, and calls to action are shaped around business outcomes, not filler sections.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="280ms">
+      <h3>Automation with purpose</h3>
+      <p>Integrations only stay if they save time, reduce missed leads, or improve team visibility.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="300ms">
+      <h3>Fast feedback loops</h3>
+      <p>Short review cycles and direct implementation keep momentum high and project drift low.</p>
+    </article>
+  </div>
+</section>
+
+<section id="services" class="section-card panel section-gap reveal" data-reveal-delay="320ms">
+  <div class="section-head">
+    <h2 class="gradient-text">Service Focus</h2>
+    <p>Four lanes where we consistently create the most value.</p>
+  </div>
+  <div class="insight-grid">
+    <article class="insight-card reveal" data-reveal-delay="340ms">
+      <h3>Brand and business sites</h3>
+      <p>Positioning-led pages that communicate value quickly and guide visitors to a clear next step.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="360ms">
+      <h3>AI sales assistants</h3>
+      <p>Chat experiences that qualify interest, answer common questions, and route details into your workflow.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="380ms">
+      <h3>E-commerce systems</h3>
+      <p>Storefront improvements across product presentation, checkout flow, and post-purchase operations.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="400ms">
+      <h3>Ops and analytics</h3>
+      <p>Notifications, CRM connections, dashboards, and internal automation that support scale.</p>
+    </article>
+  </div>
+</section>
+
+<section id="process" class="section-card panel section-gap reveal" data-reveal-delay="420ms">
+  <div class="section-head">
+    <h2 class="gradient-text">How Engagements Run</h2>
+    <p>A lightweight process that still keeps quality, approvals, and delivery visible.</p>
+  </div>
+  <div class="phase-grid">
+    <article class="phase-card reveal" data-reveal-delay="440ms">
+      <span class="phase-step">01</span>
+      <h3>Align the goal</h3>
+      <p>We identify the business objective, scope edges, audience, and success metrics.</p>
+    </article>
+    <article class="phase-card reveal" data-reveal-delay="460ms">
+      <span class="phase-step">02</span>
+      <h3>Shape the journey</h3>
+      <p>We define structure, copy direction, offer hierarchy, and key interaction points.</p>
+    </article>
+    <article class="phase-card reveal" data-reveal-delay="480ms">
+      <span class="phase-step">03</span>
+      <h3>Build and connect</h3>
+      <p>Frontend, backend, integrations, chatbot flows, and QA come together in one delivery track.</p>
+    </article>
+    <article class="phase-card reveal" data-reveal-delay="500ms">
+      <span class="phase-step">04</span>
+      <h3>Launch and tune</h3>
+      <p>We ship, monitor, refine, and help your team operate the system with confidence.</p>
+    </article>
+  </div>
 </section>
 {% endblock %}

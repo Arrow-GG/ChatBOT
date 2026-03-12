@@ -5,8 +5,11 @@ import sqlite3
 import uuid
 import json
 import time
+import base64
 from threading import Lock
 from datetime import datetime, timezone
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 from werkzeug.security import check_password_hash, generate_password_hash
 
 try:
@@ -27,6 +30,10 @@ ADMIN_LOGIN_MAX_ATTEMPTS = int(os.environ.get("ADMIN_LOGIN_MAX_ATTEMPTS", "5"))
 ADMIN_LOCKOUT_SECONDS = int(os.environ.get("ADMIN_LOCKOUT_SECONDS", "600"))
 ADMIN_API_WINDOW_SECONDS = int(os.environ.get("ADMIN_API_WINDOW_SECONDS", "60"))
 ADMIN_API_MAX_REQUESTS = int(os.environ.get("ADMIN_API_MAX_REQUESTS", "90"))
+TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "").strip()
+TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN", "").strip()
+TWILIO_WHATSAPP_FROM = os.environ.get("TWILIO_WHATSAPP_FROM", "").strip()
+ADMIN_WHATSAPP_TO = os.environ.get("ADMIN_WHATSAPP_TO", "").strip()
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "data", "app.db")
 _firebase_db = None
@@ -55,6 +62,17 @@ SERVICES = {
         "name": "UI/UX Design",
         "price": "custom quote",
     },
+}
+
+STAGE_LABELS = {
+    "await_service": "Service matching",
+    "decide_next": "Offer direction",
+    "collect_name": "Contact details",
+    "collect_email": "Contact details",
+    "collect_phone": "Contact details",
+    "collect_requirement": "Project brief",
+    "confirm": "Confirmation",
+    "done": "Request completed",
 }
 
 
@@ -151,12 +169,102 @@ def match_service(msg: str):
     return None
 
 
+def chat_payload(reply: str, suggestions=None):
+    return jsonify(
+        {
+            "reply": reply,
+            "suggestions": suggestions or [],
+            "stage": session.get("state", "await_service"),
+            "stage_label": STAGE_LABELS.get(session.get("state"), "Assistant"),
+            "selected_service": SERVICES.get(session.get("selected_service"), {}).get("name"),
+        }
+    )
+
+
 def valid_email(email: str) -> bool:
     return bool(re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+", email or ""))
 
 
 def valid_phone(phone: str) -> bool:
     return bool(re.match(r"^[+0-9\-\s]{6,20}$", phone or ""))
+
+
+def get_chat_transcript(chat_session_id: str, limit: int = 8) -> str:
+    if not chat_session_id:
+        return ""
+    rows = db_query(
+        """
+        SELECT role, message
+        FROM chat_events
+        WHERE chat_session_id = ?
+        ORDER BY id ASC
+        """,
+        (chat_session_id,),
+    )
+    if not rows:
+        return ""
+
+    trimmed_rows = rows[-limit:]
+    lines = []
+    for row in trimmed_rows:
+        role = "User" if row.get("role") == "user" else "Bot"
+        message = " ".join((row.get("message") or "").split())
+        if len(message) > 140:
+            message = message[:137] + "..."
+        lines.append(f"{role}: {message}")
+    return "\n".join(lines)
+
+
+def format_lead_notification(lead: dict) -> str:
+    base_message = (
+        "New ArroneX lead received\n"
+        f"Name: {lead.get('name') or 'Not provided'}\n"
+        f"Email: {lead.get('email') or 'Not provided'}\n"
+        f"Phone: {lead.get('phone') or 'Not provided'}\n"
+        f"Service: {lead.get('service') or 'Not provided'}\n"
+        f"Source: {lead.get('source') or 'website'}\n"
+        f"Requirement: {lead.get('requirement') or 'Not provided'}"
+    )
+    transcript = get_chat_transcript(lead.get("chat_session_id", ""))
+    if transcript:
+        return f"{base_message}\n\nRecent chat:\n{transcript}"
+    return base_message
+
+
+def send_whatsapp_notification(lead: dict) -> bool:
+    if not (
+        TWILIO_ACCOUNT_SID
+        and TWILIO_AUTH_TOKEN
+        and TWILIO_WHATSAPP_FROM
+        and ADMIN_WHATSAPP_TO
+    ):
+        return False
+
+    payload = urlencode(
+        {
+            "From": TWILIO_WHATSAPP_FROM,
+            "To": ADMIN_WHATSAPP_TO,
+            "Body": format_lead_notification(lead),
+        }
+    ).encode("utf-8")
+    token = base64.b64encode(
+        f"{TWILIO_ACCOUNT_SID}:{TWILIO_AUTH_TOKEN}".encode("utf-8")
+    ).decode("ascii")
+    req = Request(
+        f"https://api.twilio.com/2010-04-01/Accounts/{TWILIO_ACCOUNT_SID}/Messages.json",
+        data=payload,
+        method="POST",
+        headers={
+            "Authorization": f"Basic {token}",
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    )
+    try:
+        with urlopen(req, timeout=10):
+            return True
+    except Exception as err:  # pragma: no cover - network/provider dependent
+        app.logger.warning("whatsapp notification failed: %s", err)
+        return False
 
 
 def log_chat(role: str, message: str):
@@ -354,22 +462,33 @@ def login():
         email = request.form.get("email", "").strip()
         message = request.form.get("message", "").strip()
         if email and valid_email(email):
+            lead_payload = {
+                "name": request.form.get("name", "Website Inquiry"),
+                "email": email,
+                "phone": "",
+                "service": "Consultation Request",
+                "requirement": message,
+                "source": "login_form",
+                "timestamp": utc_now_iso(),
+                "chat_session_id": session.get("chat_session_id"),
+            }
             db_execute(
                 """
                 INSERT INTO leads (created_at, name, email, phone, service, requirement, source, chat_session_id)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
-                    utc_now_iso(),
-                    request.form.get("name", "Website Inquiry"),
-                    email,
-                    "",
-                    "Consultation Request",
-                    message,
-                    "login_form",
-                    session.get("chat_session_id"),
+                    lead_payload["timestamp"],
+                    lead_payload["name"],
+                    lead_payload["email"],
+                    lead_payload["phone"],
+                    lead_payload["service"],
+                    lead_payload["requirement"],
+                    lead_payload["source"],
+                    lead_payload["chat_session_id"],
                 ),
             )
+            send_whatsapp_notification(lead_payload)
         return render_page("login.html", "login", success=True, email=email)
     return render_page("login.html", "login", success=False)
 
@@ -387,13 +506,24 @@ def chat():
 
     if msg == "__start__":
         session["state"] = "await_service"
+        session["selected_service"] = None
+        session["lead"] = {}
         reply = (
             "Hello. I am your ArroneX assistant. "
             "Which service are you looking for today: Business Website, E-commerce, AI Chatbot, Automation, or UI/UX? "
             "Typical delivery is 1-3 weeks and we offer a free consultation."
         )
         log_chat("assistant", reply)
-        return jsonify({"reply": reply})
+        return chat_payload(
+            reply,
+            [
+                "Business Website",
+                "E-commerce",
+                "AI Chatbot",
+                "Automation",
+                "UI/UX",
+            ],
+        )
 
     if state == "await_service":
         service_key = match_service(msg)
@@ -411,12 +541,22 @@ def chat():
                 "AI Chatbot, Automation, or UI/UX."
             )
         log_chat("assistant", reply)
-        return jsonify({"reply": reply})
+        return chat_payload(
+            reply,
+            [
+                "Business Website",
+                "E-commerce",
+                "AI Chatbot",
+                "Automation",
+                "UI/UX",
+            ],
+        )
 
     if state == "decide_next":
         if is_positive_intent(msg):
             session["state"] = "collect_name"
             reply = "Perfect. What is your full name?"
+            suggestions = []
         else:
             service_key = session.get("selected_service")
             info = SERVICES.get(service_key, {})
@@ -424,37 +564,44 @@ def chat():
                 f"{info.get('name', 'This service')} can usually ship in 1-3 weeks. "
                 "Say 'quote' or 'consultation' and I will collect your details."
             )
+            suggestions = ["Quote", "Consultation", "Pricing", "Start project"]
         log_chat("assistant", reply)
-        return jsonify({"reply": reply})
+        return chat_payload(reply, suggestions)
 
     if state == "collect_name":
         session["lead"]["name"] = msg
         session["state"] = "collect_email"
         reply = "Thanks. What is your best email address?"
         log_chat("assistant", reply)
-        return jsonify({"reply": reply})
+        return chat_payload(reply)
 
     if state == "collect_email":
         if not valid_email(msg):
             reply = "That email format looks invalid. Please enter a valid email address."
             log_chat("assistant", reply)
-            return jsonify({"reply": reply})
+            return chat_payload(reply)
         session["lead"]["email"] = msg
         session["state"] = "collect_phone"
-        reply = "Got it. What phone number should we contact?"
+        reply = "Got it. What phone number should we contact? You can also reply 'skip' if you prefer email only."
         log_chat("assistant", reply)
-        return jsonify({"reply": reply})
+        return chat_payload(reply, ["Skip"])
 
     if state == "collect_phone":
+        if msg.lower() == "skip":
+            session["lead"]["phone"] = ""
+            session["state"] = "collect_requirement"
+            reply = "No problem. Please share a short summary of your project goals."
+            log_chat("assistant", reply)
+            return chat_payload(reply)
         if not valid_phone(msg):
             reply = "Please share a valid phone number (digits, spaces, +, -)."
             log_chat("assistant", reply)
-            return jsonify({"reply": reply})
+            return chat_payload(reply, ["Skip"])
         session["lead"]["phone"] = msg
         session["state"] = "collect_requirement"
         reply = "Please share a short summary of your project goals."
         log_chat("assistant", reply)
-        return jsonify({"reply": reply})
+        return chat_payload(reply)
 
     if state == "collect_requirement":
         session["lead"]["requirement"] = msg
@@ -465,15 +612,19 @@ def chat():
             "Please confirm this info: "
             f"Name: {lead.get('name')}, "
             f"Email: {lead.get('email')}, "
-            f"Phone: {lead.get('phone')}, "
+            f"Phone: {lead.get('phone') or 'Not provided'}, "
             f"Service: {service_name}, "
             f"Requirement: {lead.get('requirement')}. "
-            "Reply 'yes' to confirm or 'no' to edit."
+            "Reply 'yes' to confirm, or say edit name, edit email, edit phone, or edit requirement."
         )
         log_chat("assistant", reply)
-        return jsonify({"reply": reply})
+        return chat_payload(
+            reply,
+            ["Yes", "Edit name", "Edit email", "Edit phone", "Edit requirement"],
+        )
 
     if state == "confirm":
+        lowered = msg.lower()
         if msg.lower() in ("yes", "y", "confirm"):
             session["state"] = "done"
             lead = session.get("lead", {})
@@ -489,15 +640,40 @@ def chat():
             }
             reply = "Thanks. Your request is confirmed. Our team will contact you within 24 hours."
             log_chat("assistant", reply)
-            return jsonify({"reply": reply, "lead": payload})
-        session["state"] = "collect_requirement"
-        reply = "No problem. Please re-enter your project requirement."
+            response = chat_payload(reply, ["Start new chat", "View pricing", "Book consultation"])
+            response_payload = response.get_json()
+            response_payload["lead"] = payload
+            return jsonify(response_payload)
+        if "name" in lowered:
+            session["state"] = "collect_name"
+            reply = "Sure. Please enter the correct full name."
+            log_chat("assistant", reply)
+            return chat_payload(reply)
+        if "email" in lowered:
+            session["state"] = "collect_email"
+            reply = "Sure. Please enter the correct email address."
+            log_chat("assistant", reply)
+            return chat_payload(reply)
+        if "phone" in lowered:
+            session["state"] = "collect_phone"
+            reply = "Sure. Please enter the correct phone number, or reply 'skip'."
+            log_chat("assistant", reply)
+            return chat_payload(reply, ["Skip"])
+        if "requirement" in lowered or "project" in lowered or msg.lower() in ("no", "n"):
+            session["state"] = "collect_requirement"
+            reply = "No problem. Please re-enter your project requirement."
+            log_chat("assistant", reply)
+            return chat_payload(reply)
+        reply = "Please reply 'yes' to confirm, or choose what to edit: name, email, phone, or requirement."
         log_chat("assistant", reply)
-        return jsonify({"reply": reply})
+        return chat_payload(reply, ["Yes", "Edit name", "Edit email", "Edit phone", "Edit requirement"])
 
     reply = "I can help with web, e-commerce, chatbot, automation, and UI/UX. Which service do you need?"
     log_chat("assistant", reply)
-    return jsonify({"reply": reply})
+    return chat_payload(
+        reply,
+        ["Business Website", "E-commerce", "AI Chatbot", "Automation", "UI/UX"],
+    )
 
 
 @app.route("/save_lead", methods=["POST"])
@@ -507,22 +683,34 @@ def save_lead():
     if not valid_email(email):
         return jsonify({"ok": False, "error": "valid email is required"}), 400
 
+    lead_payload = {
+        "timestamp": data.get("timestamp") or utc_now_iso(),
+        "name": data.get("name", ""),
+        "email": email,
+        "phone": data.get("phone", ""),
+        "service": data.get("service", ""),
+        "requirement": data.get("requirement", ""),
+        "source": data.get("source", "chatbot"),
+        "chat_session_id": data.get("chat_session_id") or session.get("chat_session_id"),
+    }
+
     lead_id = db_execute(
         """
         INSERT INTO leads (created_at, name, email, phone, service, requirement, source, chat_session_id)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
-            data.get("timestamp") or utc_now_iso(),
-            data.get("name", ""),
-            email,
-            data.get("phone", ""),
-            data.get("service", ""),
-            data.get("requirement", ""),
-            data.get("source", "chatbot"),
-            data.get("chat_session_id") or session.get("chat_session_id"),
+            lead_payload["timestamp"],
+            lead_payload["name"],
+            lead_payload["email"],
+            lead_payload["phone"],
+            lead_payload["service"],
+            lead_payload["requirement"],
+            lead_payload["source"],
+            lead_payload["chat_session_id"],
         ),
     )
+    send_whatsapp_notification(lead_payload)
     return jsonify({"ok": True, "id": lead_id})
 
 

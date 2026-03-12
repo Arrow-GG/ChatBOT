@@ -3,33 +3,140 @@
 {% block title %}Info | ArroneX{% endblock %}
 
 {% block content %}
-<section class="section-card panel">
-  <h1 class="page-title">Pricing and Delivery Information</h1>
-  <p class="lead">Transparent starter pricing with fixed-quote options for custom scopes.</p>
+<section class="section-card panel page-hero reveal" data-reveal-delay="80ms">
+  <div class="page-hero-copy">
+    <p class="kicker">PRICING AND DELIVERY</p>
+    <h1 class="page-title">Clear package ranges, practical timelines, and a better picture of what you get.</h1>
+    <p class="lead">
+      ArroneX works with fixed starter packages for common builds and custom
+      quotes for more advanced system work. The goal is clarity before scope
+      gets complex.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/contacts">Ask for a Quote</a>
+      <button class="btn btn-secondary js-open-chat" type="button">Discuss Scope</button>
+    </div>
+  </div>
+  <aside class="page-hero-side">
+    <div class="contact-promise-card reveal" data-reveal-delay="120ms">
+      <p class="pricing-label">Typical Delivery</p>
+      <h3>Fast enough for active campaigns, structured enough for production work.</h3>
+      <p>We align on scope first so pricing and timing stay grounded in real deliverables.</p>
+    </div>
+  </aside>
 </section>
 
-<section class="content-grid" style="margin-top:16px">
-  <article class="section-card panel">
-    <h3 style="margin-top:0">Packages</h3>
+<section class="section-rail reveal" data-reveal-delay="130ms">
+  <a class="section-jump" href="#packages">Packages</a>
+  <a class="section-jump" href="#included">Included</a>
+  <a class="section-jump" href="#timeline">Timeline</a>
+  <a class="section-jump" href="#quote">Quote Process</a>
+</section>
+
+<section id="packages" class="section-card panel section-gap reveal" data-reveal-delay="160ms">
+  <div class="section-head">
+    <h2 class="gradient-text">Package Ranges</h2>
+    <p>Starting ranges for the most common project types.</p>
+  </div>
+  <div class="insight-grid">
+    <article class="insight-card reveal" data-reveal-delay="180ms">
+      <h3>Business website</h3>
+      <p class="compact-lead">From $499</p>
+      <p>Landing pages, business sites, service pages, and high-clarity messaging builds.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="200ms">
+      <h3>E-commerce platform</h3>
+      <p class="compact-lead">From $899</p>
+      <p>Storefront setup, catalog experience, conversion cleanup, and operational flow support.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="220ms">
+      <h3>AI chatbot integration</h3>
+      <p class="compact-lead">From $599</p>
+      <p>Lead qualification, assistant flows, contact capture, and basic business automation.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="240ms">
+      <h3>Automation and custom systems</h3>
+      <p class="compact-lead">Custom quote</p>
+      <p>CRM integrations, reporting dashboards, multi-step pipelines, and internal tooling.</p>
+    </article>
+  </div>
+</section>
+
+<section id="included" class="content-grid section-gap">
+  <article class="section-card panel reveal" data-reveal-delay="260ms">
+    <div class="section-head">
+      <h2 class="gradient-text">What’s Included</h2>
+      <p>Baseline work that is typically part of every engagement.</p>
+    </div>
     <ul class="list-clean">
-      <li>Business website: from $499, usually 1-2 weeks.</li>
-      <li>E-commerce platform: from $899, usually 2-4 weeks.</li>
-      <li>AI chatbot integration: from $599, usually 1-2 weeks.</li>
-      <li>Automation systems and UI/UX programs: custom quote.</li>
+      <li>Discovery, scope clarification, and delivery planning.</li>
+      <li>Design refinement and implementation of approved direction.</li>
+      <li>Build, integration, QA, and launch support.</li>
+      <li>Short stabilization period after shipping.</li>
     </ul>
   </article>
 
-  <article class="section-card panel">
-    <h3 style="margin-top:0">What is included</h3>
-    <ul class="list-clean">
-      <li>Discovery, architecture, and technical scope.</li>
-      <li>Design rounds and engineering implementation.</li>
-      <li>Quality assurance and launch support.</li>
-      <li>Short post-launch stabilization period.</li>
-    </ul>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="/login">Get a Precise Quote</a>
+  <article class="section-card panel reveal" data-reveal-delay="300ms">
+    <div class="section-head">
+      <h2 class="gradient-text">Custom Scope Factors</h2>
+      <p>What usually changes pricing beyond the starter range.</p>
     </div>
+    <ul class="list-clean">
+      <li>More pages, more templates, or more advanced user journeys.</li>
+      <li>Third-party integrations, CRM routing, or payment complexity.</li>
+      <li>Admin dashboards, reporting, or workflow orchestration.</li>
+      <li>Migration work, legacy cleanup, or rushed delivery windows.</li>
+    </ul>
   </article>
+</section>
+
+<section id="timeline" class="section-card panel section-gap reveal" data-reveal-delay="340ms">
+  <div class="section-head">
+    <h2 class="gradient-text">Delivery Expectations</h2>
+    <p>Typical project pacing when scope is clear and feedback loops stay active.</p>
+  </div>
+  <div class="phase-grid">
+    <article class="phase-card reveal" data-reveal-delay="360ms">
+      <span class="phase-step">1</span>
+      <h3>Starter sites</h3>
+      <p>Usually 1-2 weeks for focused landing pages and smaller business websites.</p>
+    </article>
+    <article class="phase-card reveal" data-reveal-delay="380ms">
+      <span class="phase-step">2</span>
+      <h3>Chatbot and light automation</h3>
+      <p>Usually 1-2 weeks depending on integrations, prompts, and lead-routing logic.</p>
+    </article>
+    <article class="phase-card reveal" data-reveal-delay="400ms">
+      <span class="phase-step">3</span>
+      <h3>E-commerce work</h3>
+      <p>Usually 2-4 weeks depending on storefront complexity and product operations.</p>
+    </article>
+    <article class="phase-card reveal" data-reveal-delay="420ms">
+      <span class="phase-step">4</span>
+      <h3>Custom systems</h3>
+      <p>Planned in phases after scope review so milestones and approvals stay clear.</p>
+    </article>
+  </div>
+</section>
+
+<section id="quote" class="section-card panel section-gap reveal" data-reveal-delay="440ms">
+  <div class="section-head">
+    <h2 class="gradient-text">How Quotes Are Prepared</h2>
+    <p>A short, structured process to avoid vague estimates and surprise additions.</p>
+  </div>
+  <div class="insight-grid">
+    <article class="insight-card reveal" data-reveal-delay="460ms">
+      <h3>Step 1: Context</h3>
+      <p>You share goals, examples, timeline, and anything already in progress.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="480ms">
+      <h3>Step 2: Scope shaping</h3>
+      <p>We define the likely package, required integrations, and any custom edges.</p>
+    </article>
+    <article class="insight-card reveal" data-reveal-delay="500ms">
+      <h3>Step 3: Quote and plan</h3>
+      <p>You receive pricing direction, deliverables, and a practical launch path.</p>
+    </article>
+  </div>
 </section>
 {% endblock %}
