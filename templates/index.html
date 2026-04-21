@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% block title %}ArroneX | AI Web Studio{% endblock %}
+{% block meta_description %}ArroneX builds premium websites, AI sales assistants, e-commerce systems, and automation engines that turn visitors into qualified leads.{% endblock %}
 {% block content %}
 <section class="section-card hero reveal" data-reveal-delay="100ms">
   <div>
@@ -7,20 +8,34 @@
       ArroneX builds premium websites, AI assistants, and automation engines.
     </h1>
     <p class="lead">
-      Launch a conversion-ready digital platform with production-grade
-      engineering, fast iterations, and built-in lead intelligence. Every
-      project includes measurable goals, analytics foundations, and scalable
-      architecture.
+      Launch a conversion-ready website, chatbot, or automation system that
+      turns visitors into qualified leads. We plan the offer, build the
+      interface, wire the follow-up, and make the result measurable from day
+      one.
     </p>
     <div class="cta-row">
       <button id="runChat" class="btn btn-primary" type="button">
         <span class="btn-icon">▶</span>
-        Run Chatbot
+        Start AI Consultation
       </button>
       <a href="/contacts" class="btn btn-secondary">
         <span class="btn-icon">→</span>
         Book a Strategy Call
       </a>
+    </div>
+    <div class="hero-proof-row" aria-label="Project delivery highlights">
+      <div>
+        <strong>48 hr</strong>
+        <span>scope response</span>
+      </div>
+      <div>
+        <strong>SEO + analytics</strong>
+        <span>included from launch</span>
+      </div>
+      <div>
+        <strong>Lead flow</strong>
+        <span>forms, chat, and alerts</span>
+      </div>
     </div>
     <div class="stats-grid">
       <article class="stat-card reveal" data-reveal-delay="200ms">
@@ -95,7 +110,7 @@
         High-conversion brand sites with fast load speed and clear messaging
         architecture.
       </p>
-      <span class="price-tag">From $499</span>
+      <span class="price-tag">From $299</span>
     </article>
     <article class="service-card reveal" data-reveal-delay="240ms">
       <div class="service-icon">🛍️</div>
@@ -104,7 +119,7 @@
         Storefront UX, catalog architecture, checkout optimization, and growth
         integrations.
       </p>
-      <span class="price-tag">From $899</span>
+      <span class="price-tag">From $599</span>
     </article>
     <article class="service-card reveal" data-reveal-delay="260ms">
       <div class="service-icon">💬</div>
@@ -113,7 +128,7 @@
         Sales assistant flows, qualification logic, and persistent lead capture
         pipelines.
       </p>
-      <span class="price-tag">From $599</span>
+      <span class="price-tag">From $349</span>
     </article>
     <article class="service-card reveal" data-reveal-delay="280ms">
       <div class="service-icon">🔄</div>
@@ -152,21 +167,28 @@
   data-reveal-delay="250ms"
 >
   <div class="section-head">
-    <h2 class="gradient-text">Featured Projects</h2>
-    <p>Real results from real clients. See what we build.</p>
+    <h2 class="gradient-text">Featured Case Studies</h2>
+    <p>Outcome-focused builds for storefronts, service brands, and sales teams.</p>
   </div>
   <div class="portfolio-grid">
     <article class="portfolio-card reveal" data-reveal-delay="270ms">
       <div
-        class="portfolio-img"
-        style="background: linear-gradient(135deg, #33e8ff 0%, #5f8bff 100%)"
-      ></div>
+        class="portfolio-img portfolio-img-commerce"
+        role="img"
+        aria-label="E-commerce dashboard preview"
+      >
+        <span>Retail Growth System</span>
+      </div>
       <h3>E-commerce Scaling Platform</h3>
-      <p class="portfolio-meta">$ 45K Revenue in 90 days</p>
+      <p class="portfolio-meta">$45K revenue in 90 days</p>
       <p>
-        Complete storefront rebuild with conversion optimization and automated
-        email flows.
+        Rebuilt product discovery, checkout messaging, and follow-up flows so a
+        small retail team could launch campaigns without manual chasing.
       </p>
+      <div class="portfolio-results">
+        <span>+38% checkout starts</span>
+        <span>6 email automations</span>
+      </div>
       <div class="portfolio-tags">
         <span>E-commerce</span>
         <span>Design</span>
@@ -175,15 +197,22 @@
     </article>
     <article class="portfolio-card reveal" data-reveal-delay="290ms">
       <div
-        class="portfolio-img"
-        style="background: linear-gradient(135deg, #7b4dff 0%, #33e8ff 100%)"
-      ></div>
+        class="portfolio-img portfolio-img-saas"
+        role="img"
+        aria-label="SaaS lead generation interface preview"
+      >
+        <span>SaaS Lead Engine</span>
+      </div>
       <h3>SaaS Lead Generation</h3>
       <p class="portfolio-meta">300+ Qualified Leads/Month</p>
       <p>
-        AI chatbot integration with lead qualification and CRM automation
-        pipelines.
+        Added guided chatbot qualification, CRM-ready lead records, and routing
+        rules so sales could prioritize the highest-intent prospects first.
       </p>
+      <div class="portfolio-results">
+        <span>24/7 qualification</span>
+        <span>CRM handoff</span>
+      </div>
       <div class="portfolio-tags">
         <span>Chatbot</span>
         <span>SaaS</span>
@@ -192,15 +221,22 @@
     </article>
     <article class="portfolio-card reveal" data-reveal-delay="310ms">
       <div
-        class="portfolio-img"
-        style="background: linear-gradient(135deg, #ffd36b 0%, #ff6b9d 100%)"
-      ></div>
+        class="portfolio-img portfolio-img-agency"
+        role="img"
+        aria-label="Agency website redesign preview"
+      >
+        <span>Agency Conversion Rebuild</span>
+      </div>
       <h3>Agency Rebrand & Redesign</h3>
       <p class="portfolio-meta">2x Proposal Close Rate</p>
       <p>
-        Full brand refresh with modern UI system, performance optimization, and
-        analytics.
+        Reworked positioning, service pages, and proof sections around decision
+        makers who needed confidence before booking a sales call.
       </p>
+      <div class="portfolio-results">
+        <span>New offer structure</span>
+        <span>Speed cleanup</span>
+      </div>
       <div class="portfolio-tags">
         <span>Branding</span>
         <span>Design</span>
@@ -355,16 +391,16 @@
   data-reveal-delay="300ms"
 >
   <div class="section-head">
-    <h2 class="gradient-text">Transparent Pricing</h2>
-    <p>Clear pricing for every project type. No surprises.</p>
+    <h2 class="gradient-text">Flexible Pricing</h2>
+    <p>Start lean, add only what you need, and scale the build when it makes sense.</p>
   </div>
   <div class="pricing-overview">
     <article class="pricing-overview-card reveal" data-reveal-delay="310ms">
       <p class="pricing-label">Best For</p>
-      <h3>Founders, local brands, agencies, and lean product teams.</h3>
+      <h3>Founders, local brands, solo operators, agencies, and lean teams.</h3>
       <p>
-        We scope fast, keep delivery tight, and map every package to a real
-        growth goal instead of vague design hours.
+        We keep the first version practical, avoid unnecessary features, and
+        quote around deliverables instead of vague design hours.
       </p>
     </article>
     <article class="pricing-overview-card reveal" data-reveal-delay="330ms">
@@ -379,9 +415,9 @@
     <article class="pricing-overview-card reveal" data-reveal-delay="350ms">
       <p class="pricing-label">Typical Timeline</p>
       <div class="pricing-timeline-mini">
-        <span>Starter: 2-3 weeks</span>
-        <span>Growth: 4-6 weeks</span>
-        <span>Enterprise: scoped roadmap</span>
+        <span>Launch: 1-2 weeks</span>
+        <span>Growth: 2-4 weeks</span>
+        <span>Custom: scoped roadmap</span>
       </div>
     </article>
   </div>
@@ -405,19 +441,29 @@
 
     <!-- PACKAGES TAB -->
     <div class="tab-content active" id="tab-packages">
+      <div class="package-guidance reveal" data-reveal-delay="315ms">
+        <div>
+          <p class="pricing-label">Not sure what fits?</p>
+          <h3>Most teams can start smaller, then add chatbot, automation, or reporting after launch.</h3>
+        </div>
+        <a class="btn btn-primary" href="/contacts?plan=growth">
+          <span class="btn-icon">â†’</span>
+          Ask for Best Fit
+        </a>
+      </div>
       <div class="pricing-layout">
         <div class="price-grid">
           <div class="price-card basic-plan reveal" data-reveal-delay="320ms">
             <div class="price-header">
-              <h3>Starter</h3>
-              <p class="price-range">$499 - $999</p>
+              <h3>Launch</h3>
+              <p class="price-range">$299 - $699</p>
             </div>
             <ul class="price-list">
-              <li>✓ Single Page Site or Landing</li>
+              <li>✓ Landing Page or Small Business Site</li>
               <li>✓ Mobile Responsive Design</li>
               <li>✓ Basic Contact Form</li>
-              <li>✓ SEO Optimization</li>
-              <li>✓ 2 Weeks Support</li>
+              <li>✓ Basic SEO Setup</li>
+              <li>✓ 7 Days Support</li>
             </ul>
             <a class="btn btn-secondary btn-block" href="/contacts?plan=starter">
               Get Started
@@ -431,15 +477,15 @@
             <div class="popular-badge">POPULAR</div>
             <div class="price-header">
               <h3>Growth</h3>
-              <p class="price-range">$1,999 - $4,999</p>
+              <p class="price-range">$799 - $1,999</p>
             </div>
             <ul class="price-list">
               <li>✓ Multi-Page Website</li>
-              <li>✓ AI Chatbot Integration</li>
-              <li>✓ Lead Capture Pipeline</li>
-              <li>✓ Email Automation Flows</li>
-              <li>✓ Analytics Dashboard</li>
-              <li>✓ 30 Days Support</li>
+              <li>✓ Lead Capture Flow</li>
+              <li>✓ Chatbot Starter Setup</li>
+              <li>✓ Basic Automation or Alerts</li>
+              <li>✓ Analytics Foundation</li>
+              <li>✓ 14 Days Support</li>
             </ul>
             <a class="btn btn-primary btn-block" href="/contacts?plan=growth">
               Start Now
@@ -451,19 +497,19 @@
             data-reveal-delay="360ms"
           >
             <div class="price-header">
-              <h3>Enterprise</h3>
-              <p class="price-range">Custom Quote</p>
+              <h3>Custom</h3>
+              <p class="price-range">From $2,000</p>
             </div>
             <ul class="price-list">
-              <li>✓ Full E-commerce Platform</li>
+              <li>✓ E-commerce or Web App Build</li>
               <li>✓ Advanced Automation</li>
-              <li>✓ CRM Integration</li>
+              <li>✓ CRM or Payment Integration</li>
               <li>✓ Custom Integrations</li>
-              <li>✓ Dedicated Account Manager</li>
-              <li>✓ Ongoing Optimization</li>
+              <li>✓ Phased Delivery Plan</li>
+              <li>✓ Ongoing Optimization Option</li>
             </ul>
             <a class="btn btn-secondary btn-block" href="/contacts?plan=enterprise">
-              Contact Sales
+              Discuss Scope
             </a>
           </div>
         </div>
@@ -472,21 +518,21 @@
           <h3>Choose the package by business stage, not just page count.</h3>
           <div class="pricing-side-list">
             <div>
-              <strong>Starter</strong>
-              <span>For launches, one-off campaigns, and credibility pages.</span>
+              <strong>Launch</strong>
+              <span>For small sites, one-off campaigns, and credibility pages.</span>
             </div>
             <div>
               <strong>Growth</strong>
-              <span>For active sales teams that need leads, automations, and reporting.</span>
+              <span>For teams that need lead capture, chatbot starter setup, and light automation.</span>
             </div>
             <div>
-              <strong>Enterprise</strong>
-              <span>For custom systems, multi-step funnels, and integration-heavy builds.</span>
+              <strong>Custom</strong>
+              <span>For e-commerce, multi-step funnels, dashboards, and integration-heavy builds.</span>
             </div>
           </div>
           <div class="pricing-note-box">
-            Every quote includes deliverables, timeline, revision rounds, and
-            post-launch support before work begins.
+            We can also split work into phases, so you can launch the useful
+            version first and add extras later.
           </div>
         </aside>
       </div>
@@ -600,40 +646,39 @@
         <article class="faq-item reveal" data-reveal-delay="320ms">
           <h4>💳 Can I pay in installments?</h4>
           <p>
-            Yes! Most enterprise projects can be split into milestones with
-            staged payments based on deliverables.
+            Yes. Larger projects can be split into milestones, and smaller
+            builds can usually begin with a partial upfront payment.
           </p>
         </article>
 
         <article class="faq-item reveal" data-reveal-delay="340ms">
           <h4>🔄 What if I need changes after launch?</h4>
           <p>
-            All projects include 30 days of free support. Beyond that, we offer
-            ongoing maintenance retainers.
+            Every package includes a short stabilization period. Longer support
+            or maintenance can be added only if you need it.
           </p>
         </article>
 
         <article class="faq-item reveal" data-reveal-delay="360ms">
           <h4>⏰ How long does development take?</h4>
           <p>
-            Starter: 2-3 weeks | Growth: 4-6 weeks | Enterprise: Custom timeline
-            based on scope.
+            Launch: 1-2 weeks | Growth: 2-4 weeks | Custom: timeline based on scope.
           </p>
         </article>
 
         <article class="faq-item reveal" data-reveal-delay="380ms">
           <h4>📈 Is the price fixed?</h4>
           <p>
-            Base packages are fixed. Additional features, custom integrations,
-            or complex requirements are quoted separately.
+            We keep base packages lean. Extra features, custom integrations, or
+            complex workflows are quoted separately before work begins.
           </p>
         </article>
 
         <article class="faq-item reveal" data-reveal-delay="400ms">
           <h4>🎯 Do you offer discounts for multiple projects?</h4>
           <p>
-            Yes! We provide volume discounts for agencies and companies with
-            ongoing project needs.
+            Yes. We can reduce pricing for agencies, repeat clients, and
+            multiple related pages or funnels scoped together.
           </p>
         </article>
 

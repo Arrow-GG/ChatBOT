@@ -44,15 +44,15 @@ _security_lock = Lock()
 SERVICES = {
     "business": {
         "name": "Business Website Development",
-        "price": "from $499",
+        "price": "starting from $299",
     },
     "ecommerce": {
         "name": "E-commerce Website Development",
-        "price": "from $899",
+        "price": "starting from $599",
     },
     "chatbot": {
         "name": "AI Chatbot Integration",
-        "price": "from $599",
+        "price": "starting from $349",
     },
     "automation": {
         "name": "Business Automation Systems",
@@ -458,15 +458,24 @@ def index():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    plan_options = {
+        "starter": "Launch Website Package",
+        "growth": "Growth Lead System",
+        "enterprise": "Custom System Build",
+    }
+    selected_plan = (request.values.get("plan") or "").strip().lower()
+    selected_plan_label = plan_options.get(selected_plan, "Consultation Request")
     if request.method == "POST":
         email = request.form.get("email", "").strip()
         message = request.form.get("message", "").strip()
+        selected_plan = (request.form.get("plan") or "").strip().lower()
+        selected_plan_label = plan_options.get(selected_plan, "Consultation Request")
         if email and valid_email(email):
             lead_payload = {
-                "name": request.form.get("name", "Website Inquiry"),
+                "name": request.form.get("name", "").strip() or "Website Inquiry",
                 "email": email,
-                "phone": "",
-                "service": "Consultation Request",
+                "phone": request.form.get("phone", "").strip(),
+                "service": selected_plan_label,
                 "requirement": message,
                 "source": "login_form",
                 "timestamp": utc_now_iso(),
@@ -489,8 +498,23 @@ def login():
                 ),
             )
             send_whatsapp_notification(lead_payload)
-        return render_page("login.html", "login", success=True, email=email)
-    return render_page("login.html", "login", success=False)
+        return render_page(
+            "login.html",
+            "login",
+            success=True,
+            email=email,
+            selected_plan=selected_plan,
+            selected_plan_label=selected_plan_label,
+            plan_options=plan_options,
+        )
+    return render_page(
+        "login.html",
+        "login",
+        success=False,
+        selected_plan=selected_plan,
+        selected_plan_label=selected_plan_label,
+        plan_options=plan_options,
+    )
 
 
 @app.route("/chat", methods=["POST"])
@@ -826,7 +850,10 @@ def about():
 
 @app.route("/contacts")
 def contacts():
-    return render_page("contacts.html", "contacts")
+    selected_plan = (request.args.get("plan") or "").strip().lower()
+    if selected_plan not in {"starter", "growth", "enterprise"}:
+        selected_plan = "growth"
+    return render_page("contacts.html", "contacts", selected_plan=selected_plan)
 
 
 @app.route("/info")

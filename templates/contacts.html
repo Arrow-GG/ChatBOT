@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}Contact | ArroneX{% endblock %}
+{% block meta_description %}Contact ArroneX for websites, AI chatbots, e-commerce systems, automation pipelines, and conversion-focused digital builds.{% endblock %}
 
 {% block content %}
 <section class="section-card panel page-hero reveal" data-reveal-delay="80ms">
@@ -13,7 +14,7 @@
       and goal-oriented.
     </p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="/login">Request Consultation</a>
+      <a class="btn btn-primary" href="/login?plan={{ selected_plan|default('growth') }}">Request Consultation</a>
       <button type="button" class="btn btn-secondary js-open-chat">Chat Now</button>
     </div>
   </div>
@@ -23,14 +24,62 @@
       <h3>Most inquiries get a reply within 24 hours.</h3>
       <p>Share your goal, timeline, and rough scope. We will recommend the best next step.</p>
     </div>
+    <div class="mini-metrics contact-proof-metrics reveal" data-reveal-delay="140ms">
+      <div class="mini-metric">
+        <strong>1-3 wks</strong>
+        <span>typical launch cycle</span>
+      </div>
+      <div class="mini-metric">
+        <strong>14 days</strong>
+        <span>support on Growth plans</span>
+      </div>
+      <div class="mini-metric">
+        <strong>24/7</strong>
+        <span>lead capture option</span>
+      </div>
+      <div class="mini-metric">
+        <strong>Owned</strong>
+        <span>handoff and access</span>
+      </div>
+    </div>
   </aside>
 </section>
 
 <section class="section-rail reveal" data-reveal-delay="130ms">
   <a class="section-jump" href="#channels">Channels</a>
+  <a class="section-jump" href="#next-steps">Next Steps</a>
   <a class="section-jump" href="#fit">Project Fit</a>
   <a class="section-jump" href="#availability">Availability</a>
-  <a class="section-jump" href="/login">Consultation Form</a>
+  <a class="section-jump" href="/login?plan={{ selected_plan|default('growth') }}">Consultation Form</a>
+</section>
+
+<section id="next-steps" class="section-card panel section-gap reveal" data-reveal-delay="145ms">
+  <div class="section-head">
+    <h2 class="gradient-text">What Happens After You Contact Us</h2>
+    <p>A simple path from first message to launch-ready scope.</p>
+  </div>
+  <div class="phase-grid phase-grid-tight">
+    <article class="phase-card reveal" data-reveal-delay="160ms">
+      <span class="phase-step">01</span>
+      <h3>Scope Review</h3>
+      <p>We review your goal, current site, timeline, and the package that seems closest.</p>
+    </article>
+    <article class="phase-card reveal" data-reveal-delay="180ms">
+      <span class="phase-step">02</span>
+      <h3>Proposal</h3>
+      <p>You receive deliverables, timeline, price range, and revision expectations.</p>
+    </article>
+    <article class="phase-card reveal" data-reveal-delay="200ms">
+      <span class="phase-step">03</span>
+      <h3>Build Sprint</h3>
+      <p>Design, development, content placement, integrations, QA, and launch prep.</p>
+    </article>
+    <article class="phase-card reveal" data-reveal-delay="220ms">
+      <span class="phase-step">04</span>
+      <h3>Launch Support</h3>
+      <p>Post-launch checks, handoff notes, and support for planned fixes or polish.</p>
+    </article>
+  </div>
 </section>
 
 <section id="channels" class="section-card panel section-gap reveal" data-reveal-delay="160ms">

@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{% block title %}ArroneX{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}ArroneX builds conversion-focused websites, AI chatbots, e-commerce systems, and automation workflows for growing businesses.{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ArroneX">
+    <meta property="og:title" content="{% block og_title %}{{ self.title()|striptags }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Conversion-focused websites, AI assistants, e-commerce systems, and automation workflows for growing businesses.{% endblock %}">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:image" content="{{ url_for('static', filename='arronex-logo.svg', _external=True) }}">
+    <meta name="twitter:card" content="summary">
     <link rel="stylesheet" href="/static/style.css">
     {% block head %}{% endblock %}
   </head>
@@ -69,7 +77,7 @@
             <input id="input" autocomplete="off" placeholder="Type your message..." />
             <button id="send" type="button">Send</button>
           </div>
-          <div class="chat-note">Business websites from $499, e-commerce from $899, chatbot integration from $599.</div>
+          <div class="chat-note">Business websites from $299, e-commerce from $599, chatbot integration from $349.</div>
         </section>
       </div>
 

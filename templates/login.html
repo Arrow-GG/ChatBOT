@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}Consultation | ArroneX{% endblock %}
+{% block meta_description %}Request an ArroneX consultation for website design, AI chatbot integration, automation, e-commerce, and growth systems.{% endblock %}
 
 {% block content %}
 <section class="section-card panel page-hero reveal" data-reveal-delay="80ms">
@@ -19,6 +20,13 @@
       <h3>A practical reply, not a generic sales script.</h3>
       <p>We respond with likely scope direction, timeline context, and the best path forward.</p>
     </div>
+    {% if selected_plan %}
+      <div class="contact-promise-card selected-plan-card reveal" data-reveal-delay="140ms">
+        <p class="pricing-label">Selected Package</p>
+        <h3>{{ selected_plan_label }}</h3>
+        <p>This package will be attached to your request automatically.</p>
+      </div>
+    {% endif %}
   </aside>
 </section>
 
@@ -37,13 +45,26 @@
 
     <form id="consultForm" method="post" action="/login">
       <div class="form-grid">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="phone">Phone or WhatsApp</label>
+          <input id="phone" name="phone" type="tel" placeholder="+91 60004 29946">
+        </div>
         <div class="field" style="grid-column:1 / -1">
           <label for="email">Work Email</label>
           <input id="email" name="email" type="email" placeholder="you@company.com" required>
         </div>
         <div class="field" style="grid-column:1 / -1">
-          <label for="password">Password</label>
-          <input id="password" name="password" type="password" placeholder="Enter your password" required>
+          <label for="plan">Package Interest</label>
+          <select id="plan" name="plan">
+            <option value="">Recommend the best fit</option>
+            {% for value, label in plan_options.items() %}
+              <option value="{{ value }}" {{ 'selected' if selected_plan == value else '' }}>{{ label }}</option>
+            {% endfor %}
+          </select>
         </div>
         <div class="field" style="grid-column:1 / -1">
           <label for="message">Project Summary</label>
@@ -70,13 +91,13 @@
       </article>
       <article class="phase-card reveal" data-reveal-delay="240ms">
         <span class="phase-step">02</span>
-        <h3>Clarify</h3>
-        <p>If needed, we ask a few tight questions to clean up scope.</p>
+        <h3>Proposal</h3>
+        <p>You get a clear package recommendation, timeline, and deliverables.</p>
       </article>
       <article class="phase-card reveal" data-reveal-delay="260ms">
         <span class="phase-step">03</span>
-        <h3>Recommend</h3>
-        <p>We suggest the best package, process, or build direction.</p>
+        <h3>Build Sprint</h3>
+        <p>Once approved, we move into design, build, QA, and launch support.</p>
       </article>
     </div>
   </article>
